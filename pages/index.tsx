@@ -76,7 +76,7 @@ const Home: NextPage = () => {
               </div>
             </section>
             <section className="snap-end relative bg-black bg-opacity-50">
-              <div className="flex justify-evenly items-center">
+              <div className="flex justify-evenly items-center flex-col sm:flex-row lg:mx-64">
                 <div>
                   <Image
                     src="/images/level.jpg"
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                     height={200}
                   />
                 </div>
-                <div className="text-right w-1/2">
+                <div className="text-center sm:text-right w-auto sm:w-1/2">
                   <h1>Levelsystem</h1>
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae

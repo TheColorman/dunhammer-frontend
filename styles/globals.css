@@ -37,7 +37,7 @@ p, span {
 }
 
 section {
-  @apply relative flex flex-col items-center justify-center h-96 px-32 py-16;
+  @apply relative flex flex-col items-center justify-center h-96 py-16;
 }
 
 .btn {
