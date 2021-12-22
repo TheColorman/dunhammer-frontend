@@ -10,3 +10,4 @@ Gitmoji guide:
 | ✨ | New component |
 | 💄 | CSS change |
 | 🌲 | DOM change |
+| 👽 | API change |
