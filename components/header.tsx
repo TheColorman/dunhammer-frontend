@@ -3,8 +3,8 @@ import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Header() {
-    const { data: session, status } = useSession()
-    const loading = status === "loading"
+    const { data: session } = useSession()
+    
     
     // Sticky banner with Dunhammer logo
     return (
@@ -54,8 +54,23 @@ export default function Header() {
                                         </>
                                     )}
                                     {session && (
-                                        <>
-                                            <span className="sr-only">Sign out</span>
+                                        <div className="flex flex-row items-baseline">
+                                            <Link href="/dashboard">
+                                                <a
+                                                    className="flex flex-row items-baseline"
+                                                >
+                                                    <span
+                                                        className="float-left h-8 w-8 bg-white bg-cover bg-no-repeat self-center mr-1"
+                                                        style={{
+                                                            backgroundImage: `url('${session.user?.image}')`,
+                                                            borderRadius: "2rem",
+                                                        }}
+                                                    />
+                                                    <div>
+                                                        {session.user?.name}
+                                                    </div>                                                    
+                                                </a>
+                                            </Link>
                                             <a
                                                 href="/api/auth/signout"
                                                 onClick={(e) => {
@@ -63,11 +78,12 @@ export default function Header() {
                                                     signOut()
                                                 }}
                                             >
-                                                <button className="btn btn-primary">
+                                                <span className="sr-only">Sign out</span>
+                                                <button className="ml-2 btn btn-primary">
                                                     Sign out
                                                 </button>
                                             </a>
-                                        </>
+                                        </div>
                                     )}
                                 </div>
                             </div>
