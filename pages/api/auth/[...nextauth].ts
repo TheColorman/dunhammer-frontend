@@ -8,5 +8,6 @@ export default NextAuth({
         clientId: process.env.DISCORD_CLIENT_ID,
         clientSecret: process.env.DISCORD_CLIENT_SECRET
       })
-    ]
+    ],
+    secret: process.env.SECRET,
 })
