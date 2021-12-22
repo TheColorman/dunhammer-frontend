@@ -114,3 +114,23 @@
     flex-direction: column;
   }
 }
+
+.custom-shape-divider-bottom-1640125492 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1640125492 svg {
+    position: relative;
+    display: block;
+    width: calc(128% + 1.3px);
+    height: 129px;
+}
+
+.custom-shape-divider-bottom-1640125492 .shape-fill {
+    fill: #00000080;
+}
