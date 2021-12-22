@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
+
 export default function Header() {
     // Sticky banner with Dunhammer logo
     return (
@@ -33,6 +34,7 @@ export default function Header() {
                         <div className="relative flex items-center ml-auto">
                             <div className="flex items-center border-l border-gray-200 ml-6 pl-6 dark:border-gray-800">
                                 <div className="ml-6 block text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+
                                     <span className="sr-only">Login</span>
                                     <Link href="/login">
                                         <a>
