@@ -8,3 +8,5 @@ Gitmoji guide:
 | ✨ | New component |
 | 🐛 | Bug fix |
 | 📝 | Documentation/readme |
+| 💄 | CSS change |
+| 🌲 | DOM changes |
