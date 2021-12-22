@@ -5,8 +5,8 @@ Gitmoji guide:
 | Emoji | Meaning |
 |:---:|:---:|
 | ⚙ | Configuration |
-| ✨ | New component |
-| 🐛 | Bug fix |
 | 📝 | Documentation/readme |
+| 🐛 | Bug fix |
+| ✨ | New component |
 | 💄 | CSS change |
-| 🌲 | DOM changes |
+| 🌲 | DOM change |
