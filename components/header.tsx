@@ -39,7 +39,7 @@ export default function Header() {
                                 <div className="ml-6 block text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
                                     {!session && (
                                         <>
-                                            <span className="sr-only">Login</span>
+                                            <span className="sr-only">Sign in</span>
                                             <a
                                                 href="/api/auth/signin"
                                                 onClick={(e) => {
@@ -48,14 +48,14 @@ export default function Header() {
                                                 }}
                                             >
                                                 <button className="btn btn-primary">
-                                                    Login
+                                                    Sign in with Discord
                                                 </button>
                                             </a>
                                         </>
                                     )}
                                     {session && (
                                         <>
-                                            <span className="sr-only">Logout</span>
+                                            <span className="sr-only">Sign out</span>
                                             <a
                                                 href="/api/auth/signout"
                                                 onClick={(e) => {
@@ -64,7 +64,7 @@ export default function Header() {
                                                 }}
                                             >
                                                 <button className="btn btn-primary">
-                                                    Logout
+                                                    Sign out
                                                 </button>
                                             </a>
                                         </>
