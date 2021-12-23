@@ -14,3 +14,4 @@ Gitmoji guide:
 | 🌲 | DOM change |
 | 👽 | API change |
 | 🔒 | Security |
+| 🗃 | Database |
