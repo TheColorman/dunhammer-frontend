@@ -15,3 +15,4 @@ Gitmoji guide:
 | 👽 | API change |
 | 🔒 | Security |
 | 🗃 | Database |
+| 🔥 | Removal |
