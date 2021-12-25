@@ -61,3 +61,7 @@ section {
 .section-container {
   @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900;
 }
+
+.spinner {
+  @apply w-8 h-8 align-[-0.125rem] border-4 border-solid border-r-transparent rounded-full animate-spin;
+}
