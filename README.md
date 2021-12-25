@@ -16,3 +16,4 @@ Gitmoji guide:
 | 🔒 | Security |
 | 🗃 | Database |
 | 🔥 | Removal |
+| 🚚 | Renaming/Moving |
