@@ -6,6 +6,7 @@ import Link from "next/link"
 import Header from "../components/header"
 import Alert from "../components/alert"
 import styles from "../styles/Home.module.css"
+import Footer from "../components/footer"
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -107,6 +108,7 @@ const Home: NextPage = () => {
             name="ERROR"
             />
           )}
+          <Footer />
         </footer>
       </div>
     </>

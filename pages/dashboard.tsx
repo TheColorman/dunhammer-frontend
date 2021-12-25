@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import Header from "../components/header";
 import Center from "../components/center";
+import Footer from "../components/footer";
 
 export default function Dashboard() {
     const { data: session, status } = useSession()
@@ -54,7 +55,9 @@ export default function Dashboard() {
                     className="mt-8"
                 />
                 </div>
+                <h1 className="text-2xl">{session.user?.name ?? session.user?.email ?? "Hello!"}</h1>
             </div>
+            <Footer />
         </>
     )
 }

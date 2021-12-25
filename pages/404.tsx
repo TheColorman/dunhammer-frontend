@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Header from "../components/header"
 import Center from "../components/center"
+import Footer from "../components/footer"
 
 export default function Page() {
     return (
@@ -15,6 +16,7 @@ export default function Page() {
                         </a>
                     </Link>
                 </Center>
+                <Footer />
             </div>
         </>
     )
