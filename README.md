@@ -17,3 +17,4 @@ Gitmoji guide:
 | 🗃 | Database |
 | 🔥 | Removal |
 | 🚚 | Renaming/Moving |
+| 🚧 | Work in progress |
