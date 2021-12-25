@@ -22,4 +22,36 @@ export default NextAuth({
     pages: {
         error: "/"
     },
+    callbacks: {
+        session: async ({ session, user, token }) => {
+            // Get Discord token from database
+            const discordToken = (await prisma.user.findUnique({
+                where: {
+                    id: user.id
+                },
+                select: {
+                    accounts: {
+                        select: {
+                            access_token: true
+                        }
+                    }
+                }
+            }))?.accounts[0].access_token
+
+            if (!discordToken) return session
+
+            // Get user ID
+            const url = "https://discord.com/api/v9/users/@me?"
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `Bearer ${discordToken}`,
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await response.json()
+            session.discordId = data.id
+
+            return session
+        }
+    }
 })
