@@ -3,8 +3,8 @@ import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Header() {
-    const { data: session } = useSession()
-    
+    const { data: session, status } = useSession()
+    const loading = status === 'loading'
     
     // Sticky banner with Dunhammer logo
     return (
@@ -37,11 +37,18 @@ export default function Header() {
                         <div className="relative flex items-center ml-auto">
                             <div className="flex items-center border-l border-gray-200 ml-6 pl-6 dark:border-gray-800">
                                 <div className="ml-6 block text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
-                                    {!session && (
+                                    {loading && (
+                                        <div className="flex flex-row items-baseline">
+                                            <div className="spinner" role="status">
+                                                <span className="hidden">Loading...</span>
+                                            </div>
+                                        </div>                                    
+                                    )}
+                                    {!loading && !session && (
                                         <>
                                             <span className="sr-only">Sign in</span>
                                             <a
-                                                href="/api/auth/signin"
+                                                /* href="/api/auth/signin" <- NextJS isn't allowing this despite the .preventDefault() method used below */
                                                 onClick={(e) => {
                                                     e.preventDefault()
                                                     signIn("discord")
@@ -53,7 +60,7 @@ export default function Header() {
                                             </a>
                                         </>
                                     )}
-                                    {session && (
+                                    {!loading && session && (
                                         <div className="flex flex-row items-baseline">
                                             <Link href="/dashboard">
                                                 <a
@@ -72,7 +79,7 @@ export default function Header() {
                                                 </a>
                                             </Link>
                                             <a
-                                                href="/api/auth/signout"
+                                                /* href="/api/auth/signout" <- See comment under "sign in" button */
                                                 onClick={(e) => {
                                                     e.preventDefault()
                                                     signOut()
