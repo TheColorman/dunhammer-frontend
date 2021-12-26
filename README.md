@@ -7,7 +7,7 @@ Gitmoji guide:
 | ⚙ | Configuration |
 | 📝 | Documentation/readme |
 | 🐛 | Bug fix |
-| ✨ | New component |
+| ✨ | New component/lib |
 | 🚸 | Usability |
 | 🎨 | Design |
 | 💄 | CSS change |
