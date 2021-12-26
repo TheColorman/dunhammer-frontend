@@ -65,3 +65,7 @@ section {
 .spinner {
   @apply w-8 h-8 align-[-0.125rem] border-4 border-solid border-r-transparent rounded-full animate-spin;
 }
+
+.card {
+  @apply flex flex-col items-center max-h-full w-max p-8 bg-black bg-opacity-20 hover:bg-opacity-[23%] rounded-3xl border-black border-2 border-opacity-10 shadow-xl backdrop-blur;
+}
