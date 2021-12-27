@@ -13,6 +13,8 @@ module.exports = {
         cancel: colors.red,
         success: colors.green,
         "primary-background": "#38093b",
+        "from-gradient": colors.blue,
+        "to-gradient": colors.purple,
       },
     },
   },
