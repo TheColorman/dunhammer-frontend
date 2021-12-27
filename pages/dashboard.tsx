@@ -1,11 +1,11 @@
 import Image from "next/image"
-import { useSession } from "next-auth/react";
-import { signIn } from "next-auth/react";
-import Header from "../components/header";
-import Center from "../components/center";
-import Footer from "../components/footer";
-import { ExtendedSession } from "../lib/types";
-import { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react"
+import { signIn } from "next-auth/react"
+import Header from "../components/header"
+import Center from "../components/center"
+import Footer from "../components/footer"
+import { ExtendedSession } from "../lib/types"
+import { GetServerSideProps } from "next"
 
 export default function Dashboard() {
     const { data, status } = useSession()
@@ -37,7 +37,7 @@ export default function Dashboard() {
                     <button
                         className="btn btn-primary mt-4"
                         onClick={() => signIn("discord")}
-                        >
+                    >
                         Sign in with Discord
                     </button>
                 </div>
@@ -51,12 +51,12 @@ export default function Dashboard() {
             <div className="pt-36 flex justify-center">
                 <div className="card">
                     <div>
-                    <Image
-                        src={session.user?.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
-                        alt="User Avatar"
-                        width={128}
-                        height={128}
-                        className="mt-8"
+                        <Image
+                            src={session.user?.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
+                            alt="User Avatar"
+                            width={128}
+                            height={128}
+                            className="mt-8"
                         />
                     </div>
                     {session.user && (
