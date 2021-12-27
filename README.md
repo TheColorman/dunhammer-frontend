@@ -19,3 +19,4 @@ Gitmoji guide:
 | 🚚 | Renaming/Moving |
 | 🚧 | Work in progress |
 | ➕/➖ | Add/Remove packages |
+| ✏ | Cleanup |
