@@ -26,3 +26,23 @@ export type DiscordUser = {
     premium_type?: 0 | 1 | 2;
     public_flags?: number;
 }
+
+export type dbUser = {
+    id: string;
+    username: string;
+    tag: string;
+    levelMentions: boolean;
+    levelDm: boolean;
+    disabled: boolean;
+    xp: number;
+    level: number;
+    coins: number;
+    badges: number;
+    currentBadges: number;
+    backgrounds: number;
+    currentBackground: number;
+    spentMoney: number;
+    commandCount: number;
+    pingCount: number;
+    inviteCount: number;
+}
