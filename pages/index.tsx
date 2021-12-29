@@ -76,26 +76,6 @@ const Home: NextPage = () => {
                 </svg>
               </div>
             </section>
-            <section className="snap-end relative bg-black bg-opacity-50">
-              <div className="flex justify-evenly items-center flex-col sm:flex-row lg:mx-64">
-                <div>
-                  <Image
-                    src="/images/level.jpg"
-                    alt="Levelup"
-                    width={300}
-                    height={200}
-                  />
-                </div>
-                <div className="text-center sm:text-right w-auto sm:w-1/2">
-                  <h1>Levelsystem</h1>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-                    omnis laudantium dolore temporibus accusamus cupiditate vel quis
-                    culpa dicta laborum tenetur voluptate explicabo quibusdam
-                    consectetur, exercitationem, autem quod ex rem!
-                  </p>
-                </div>
-              </div>
             </section>
           </div>
         </main>
