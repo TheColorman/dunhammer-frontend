@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
       <div className="flex flex-col min-h-screen">
         <header>
-        <Header />
+          <Header />
         </header>
 
         <main className="flex-grow">
@@ -76,6 +76,10 @@ const Home: NextPage = () => {
                 </svg>
               </div>
             </section>
+            <section className="section bg-black bg-opacity-50">
+              <span className="text-white text-2xl text-center">
+                Coming soon: <br />Interactable Global Leaderboard
+              </span>
             </section>
           </div>
         </main>
@@ -83,9 +87,9 @@ const Home: NextPage = () => {
         <footer>
           {query.error && (
             <Alert
-            type="error"
-            message={`A ${(query.error as string).toLowerCase()} error has occured.`}
-            name="ERROR"
+              type="error"
+              message={`A ${(query.error as string).toLowerCase()} error has occured.`}
+              name="ERROR"
             />
           )}
           <Footer />
