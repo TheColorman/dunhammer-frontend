@@ -36,8 +36,9 @@ p, span {
   @apply dark:text-gray-300;
 }
 
-section {
-  @apply relative flex flex-col items-center justify-center h-96 py-16;
+.section {
+  @apply relative flex flex-col items-center justify-center py-32;
+  @apply h-auto min-h-screen;
 }
 
 .btn {

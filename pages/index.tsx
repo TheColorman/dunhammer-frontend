@@ -25,8 +25,8 @@ const Home: NextPage = () => {
         </header>
 
         <main className="flex-grow">
-          <div className="snap-y section-container">
-            <section className="snap-end h-[93vh]">
+          <div className="section-container">
+            <section className="section">
               <Image
                 className="rounded-full"
                 src="/images/dunhammer.jpg"
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
                   </button>
                 </a>
               </div>
-              <div className="mt-4">
+              <div className="mt-4 mb-8">
                 <Link href="/dashboard">
                   <a>
                     <button className="btn btn-primary">Dashboard</button>
