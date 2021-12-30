@@ -80,7 +80,7 @@ span {
 }
 
 .section-container {
-  @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900;
+  @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900 transition-all;
 }
 
 .spinner {
