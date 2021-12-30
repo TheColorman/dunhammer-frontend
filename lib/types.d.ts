@@ -46,3 +46,27 @@ export type dbUser = {
     pingCount: number;
     inviteCount: number;
 }
+
+type shopBackground = {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    thumbnail: string;
+    image: string;
+}
+
+type shopCollection = {
+    id: number;
+    name: string;
+    description: string;
+    backgrounds: shopBackground[];
+}
+
+export type shopBackgrounds = {
+    collections: shopCollection[];
+}
+
+export type apiError = {
+    error: string;
+}
