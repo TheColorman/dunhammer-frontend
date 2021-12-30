@@ -1,11 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react"
+import useSWR from "swr";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Header() {
     const { data: session, status } = useSession()
     const loading = status === 'loading'
+
+    const { data: apiData } = useSWR('/api/user', fetcher)
+    const dbUserLoading = !apiData
+    const error = apiData?.error ?? null
 
     // Sticky banner with Dunhammer logo
     return (
@@ -36,6 +43,30 @@ export default function Header() {
                             </a>
                         </Link>
                         <div className="relative flex items-center ml-auto">
+                            {!dbUserLoading && !error && (
+                                <div className="rounded-full bg-black bg-opacity-30 flex py-1 px-2">
+                                    <p className="text-yellow-500 inline-flex items-baseline">
+                                        <div className="self-center w-5 h-5">
+                                            <Image
+                                                src="/images/DunhammerCoin.png"
+                                                alt="Dunhammer Coin"
+                                                width={16}
+                                                height={16}
+                                            />
+                                        </div>
+                                        {apiData.coins}
+                                    </p>
+                                    <Link
+                                        href="/buy"
+                                    >
+                                        <a className="self-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-yellow-500 hover:text-yellow-300 hover:cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </Link>
+                                </div>
+                            )}
                             <div className="flex items-center border-l border-gray-200 ml-6 pl-6 dark:border-gray-800">
                                 <div className="ml-6 mr-6 block">
                                     {loading && (
@@ -79,6 +110,7 @@ export default function Header() {
                                                     className="dropdownItem hover:cursor-default hover:bg-gray-900 text-white italic">
                                                     {session.user?.name}
                                                 </DropdownMenu.Label>
+                                                <DropdownMenu.Separator />
                                                 <Link
                                                     href="/dashboard"
                                                 >
