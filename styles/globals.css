@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Nyata';
-  src: url('/fonts/NyataFTR-Regular.otf');
+  font-family: "Nyata";
+  src: url("/fonts/NyataFTR-Regular.otf");
 }
 
 html {
@@ -20,7 +20,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900;
   @apply dark:bg-primary-background;
@@ -35,12 +35,18 @@ a {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Nyata', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nyata", sans-serif;
   @apply dark:text-white;
 }
 
-p, span {
+p,
+span {
   @apply dark:text-gray-300;
 }
 
