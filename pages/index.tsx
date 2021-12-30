@@ -16,7 +16,6 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Dunhammer</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="flex flex-col min-h-screen">
@@ -57,7 +56,7 @@ const Home: NextPage = () => {
               <div className="mt-4 mb-8">
                 <Link href="/dashboard">
                   <a>
-                    <button className="btn btn-primary">Dashboard</button>
+                    <button className="btn btn-secondary">Dashboard</button>
                   </a>
                 </Link>
               </div>
