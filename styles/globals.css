@@ -68,6 +68,12 @@ span {
   @apply bg-opacity-50;
 }
 
+.btn-secondary {
+  @apply bg-secondary-900;
+  @apply text-white;
+  @apply bg-opacity-50;
+}
+
 .btn:hover {
   @apply transition-all;
   @apply bg-opacity-90;
