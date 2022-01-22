@@ -45,7 +45,7 @@ export default function Alert({ type = "info", name, message, onClick }: AlertOp
     >
       <div className="text-center py-4 lg:px-4">
         <div
-          className={`p-2 items-center leading-none lg:rounded-full flex lg:inline-flex backdrop-blur-sm ${colors.text[type]} ${colors.bg.background[type]}`}
+          className={`p-2 items-center leading-none rounded-full flex lg:inline-flex backdrop-blur-sm ${colors.text[type]} ${colors.bg.background[type]}`}
           role="alert"
         >
           {name && (
