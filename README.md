@@ -8,13 +8,13 @@ Gitmoji guide:
 | 📝 | Documentation/readme |
 | 🐛 | Bug fix |
 | ✨ | New component/lib |
-| 🚸 | Usability |
+| 🚸 | Usability/readability |
 | 🎨 | Design |
 | 💄 | CSS change |
 | 🌲 | DOM change |
 | 👽 | API change |
 | 🔒 | Security |
-| 🗃 | Database |
+| 🗃 | Database/types |
 | 🔥 | Removal |
 | 🚚 | Renaming/Moving |
 | 🚧 | Work in progress |
