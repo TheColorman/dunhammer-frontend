@@ -3,6 +3,7 @@ import DiscordProvider from "next-auth/providers/discord"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import { ExtendedSession, DiscordUser } from "../../../lib/types"
+import refreshToken from "../../../lib/refreshToken"
 
 const prisma = new PrismaClient()
 
@@ -24,25 +25,18 @@ export default NextAuth({
     },
     callbacks: {
         session: async ({ session, user, token }) => {
-
             if (!session.user) return session
 
-            // Get Discord token from database
-            const discordToken = (await prisma.user.findUnique({
-                where: {
-                    id: user.id
-                },
-                select: {
-                    accounts: {
-                        select: {
-                            access_token: true
-                        }
-                    }
-                }
-            }))?.accounts[0].access_token
+            const refreshTokenResult = await refreshToken(user)
+            const extSession = session as ExtendedSession
 
-            if (!discordToken) return session
-            
+            if ("error" in refreshTokenResult) {
+                extSession.expired = true
+                return extSession
+            }
+
+            const { token: discordToken } = refreshTokenResult
+
             // Get user ID
             const url = "https://discord.com/api/v9/users/@me?"
             const response = await fetch(url, {
@@ -52,12 +46,10 @@ export default NextAuth({
                 }
             })
             const data = (await response.json()) as DiscordUser
-            
-            const extSession = session as ExtendedSession
             extSession.user.discordId = data.id
             extSession.user.discriminator = data.discriminator
 
-            return session
+            return extSession
         }
     }
 })
