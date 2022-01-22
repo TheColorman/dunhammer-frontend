@@ -1,6 +1,8 @@
 import Image from "next/image"
 import useSWR from "swr"
-import { shopBackgrounds } from "../lib/types"
+import { ShopBackgrounds } from "../lib/types"
+import * as ScrollArea from '@radix-ui/react-scroll-area'
+import { ReactNode } from "react"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -16,8 +18,8 @@ export default function BackgroundSale() {
             </div>
         </div>
     )
-    
-    const data = apiData as shopBackgrounds
+
+    const data = apiData as ShopBackgrounds
 
     return (
         <>
@@ -25,9 +27,41 @@ export default function BackgroundSale() {
                 <div key={collection.id}>
                     <h1 className="text-lg">{collection.name}</h1>
                     <h2 className="text-base">{collection.description}</h2>
-                    <div className="grid grid-cols-3 auto-rows-max gap-8">
+                    <ScrollArea.Root>
+                        <ScrollArea.Viewport>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                            <p>text here</p>
+                        </ScrollArea.Viewport>
+                        <ScrollArea.Scrollbar orientation="vertical">
+                            <ScrollArea.Thumb />
+                        </ScrollArea.Scrollbar>
+                        <ScrollArea.Scrollbar orientation="horizontal">
+                            <ScrollArea.Thumb />
+                        </ScrollArea.Scrollbar>
+                    </ScrollArea.Root>
                         {collection.backgrounds.map((background) => (
-                            <div key={background.id} className="card" style={{alignItems: 'start'}}>
+                            <div key={background.id} className="card" style={{ alignItems: 'start' }}>
                                 <Image
                                     src={background.image}
                                     alt="background"
@@ -38,20 +72,19 @@ export default function BackgroundSale() {
                                 <p className="text-sm">{background.description}</p>
                                 <div className="bg-black/50 rounded-b-3xl flex w-[calc(100%+4rem)] h-12 -ml-8 -mb-8 mt-4 items-center justify-between">
                                     <p className="text-yellow-500 ml-8 inline-flex items-baseline">{background.price}
-                                    <div className="self-center w-5 h-5 ml-1">
-                                        <Image
-                                            src="/images/DunhammerCoin.png"
-                                            alt="Dunhammer Coin"
-                                            width={16}
-                                            height={16}
-                                        />
-                                    </div>
+                                        <div className="self-center w-5 h-5 ml-1">
+                                            <Image
+                                                src="/images/DunhammerCoin.png"
+                                                alt="Dunhammer Coin"
+                                                width={16}
+                                                height={16}
+                                            />
+                                        </div>
                                     </p>
                                     <button className="bg-lime-600 text-white px-4 py-2 h-full rounded-br-3xl -mb-[2px] -mr-[2px] right-0">Buy</button>
                                 </div>
                             </div>
                         ))}
-                    </div>
                 </div>
             ))}
         </>
