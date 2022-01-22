@@ -7,7 +7,8 @@ export interface ExtendedSession extends Session {
         image?: string | null;
         discordId: string | null,
         discriminator: string | null,
-    }
+    },
+    expired?: boolean,
 }
 export type DiscordUser = {
     id: string;
