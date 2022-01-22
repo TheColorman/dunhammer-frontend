@@ -77,7 +77,7 @@ const Home: NextPage = () => {
             </section>
             <section className="section bg-black bg-opacity-50">
               <span className="text-white text-2xl text-center">
-                Coming soon: <br />Interactable Global Leaderboard
+                Coming soon: <br />Interactive Global Leaderboard
               </span>
             </section>
           </div>
