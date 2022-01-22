@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import query from '../../lib/db'
-import { dbUser, ExtendedSession } from '../../lib/types'
+import { DBUser, ExtendedSession } from '../../lib/types'
 
 export default async function handler(
     req: NextApiRequest,
@@ -18,7 +18,8 @@ export default async function handler(
         const result = ((await query({
             query: "SELECT * FROM `users` WHERE `id` = ?",
             values: [session.user.discordId]
-        })) as Array<dbUser>)[0]
+        })) as Array<DBUser>)[0]
+        
         res.status(200).json(result)
     } catch (error) {
         res.status(500).json({ error })

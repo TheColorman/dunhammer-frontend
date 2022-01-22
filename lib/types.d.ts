@@ -28,7 +28,7 @@ export type DiscordUser = {
     public_flags?: number;
 }
 
-export type dbUser = {
+export type DBUser = {
     id: string;
     username: string;
     tag: string;
@@ -48,7 +48,7 @@ export type dbUser = {
     inviteCount: number;
 }
 
-type shopBackground = {
+type ShopBackground = {
     id: number;
     name: string;
     description: string;
@@ -57,18 +57,18 @@ type shopBackground = {
     image: string;
 }
 
-type shopCollection = {
+type ShopCollection = {
     id: number;
     name: string;
     description: string;
-    backgrounds: shopBackground[];
+    backgrounds: ShopBackground[];
 }
 
-export type shopBackgrounds = {
-    collections: shopCollection[];
+export type ShopBackgrounds = {
+    collections: ShopCollection[];
 }
 
-export type apiError = {
+export type APIError = {
     error: string;
 }
 

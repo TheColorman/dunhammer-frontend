@@ -9,7 +9,7 @@ import Center from "../components/center"
 import Footer from "../components/footer"
 import XPChart from "../components/xpchart"
 import BackgroundSale from "../components/backgroundSale"
-import { dbUser, ExtendedSession } from "../lib/types.d"
+import { DBUser, ExtendedSession } from "../lib/types.d"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const getLevel = (xp: number) => (((Math.pow(8100 * xp + 300 * Math.sqrt(729 * xp * xp + 61613700), 1 / 3)) / 30) - (590) / Math.pow((8100 * xp + 300 * Math.sqrt(729 * xp * xp + 61613700)), 1 / 3))
@@ -22,6 +22,7 @@ export default function Dashboard() {
 
     const { data: apiData, error } = useSWR('/api/user', fetcher)
     const dbUserLoading = !apiData
+
     if (loading || dbUserLoading) return (
         <>
             <Header />
@@ -32,7 +33,7 @@ export default function Dashboard() {
             </Center>
         </>
     )
-    const dbUser = apiData as dbUser
+    const dbUser = apiData as DBUser
 
     const currentLevel = Math.floor(getLevel(dbUser.xp))
     const xpForNextLevel = getXp(currentLevel + 1) - getXp(currentLevel)
