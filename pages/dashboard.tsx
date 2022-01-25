@@ -102,7 +102,7 @@ export default function Dashboard() {
                                         alt="User Avatar"
                                         width={128}
                                         height={128}
-                                        className="mt-8"
+                                        className="mt-8 rounded-full"
                                     />
                                 </div>
                                 {session.user && (
