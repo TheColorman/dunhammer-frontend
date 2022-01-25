@@ -3,6 +3,7 @@ import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react"
 import useSWR from "swr";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
+import Router from "next/router";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -13,6 +14,10 @@ export default function Header() {
     const { data: apiData } = useSWR('/api/user', fetcher)
     const dbUserLoading = !apiData
     const error = apiData?.error ?? null
+
+    if (session && error) {
+        Router.reload()
+    }
 
     // Sticky banner with Dunhammer logo
     return (
