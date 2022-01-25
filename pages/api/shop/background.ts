@@ -36,6 +36,20 @@ const response = {
                     price: 1000,
                     thumbnail: "https://i.imgur.com/wSTFkRM.png",
                     image: "https://i.imgur.com/wSTFkRM.png",
+                }, {
+                    id: 5,
+                    name: "Background 5",
+                    description: "This is a background in collection 1",
+                    price: 1000,
+                    thumbnail: "https://i.imgur.com/wSTFkRM.png",
+                    image: "https://i.imgur.com/wSTFkRM.png",
+                }, {
+                    id: 6,
+                    name: "Background 6",
+                    description: "This is a background in collection 1",
+                    price: 1000,
+                    thumbnail: "https://i.imgur.com/wSTFkRM.png",
+                    image: "https://i.imgur.com/wSTFkRM.png",
                 }
             ]
         }, {
