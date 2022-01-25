@@ -31,8 +31,9 @@ export default NextAuth({
             const extSession = session as ExtendedSession
 
             if ("error" in refreshTokenResult) {
-                extSession.expired = true
-                return extSession
+                console.error(refreshTokenResult.error)
+                session.expires = "0"
+                return session
             }
 
             const { token: discordToken } = refreshTokenResult
