@@ -33,6 +33,7 @@ export default function Dashboard() {
             </Center>
         </>
     )
+
     const dbUser = apiData as DBUser
 
     const currentLevel = Math.floor(getLevel(dbUser.xp))
@@ -64,7 +65,7 @@ export default function Dashboard() {
         </>
     )
 
-    if (error) return (
+    if (error || apiData.error) return (
         <>
             <Header />
             <Center>
@@ -73,14 +74,14 @@ export default function Dashboard() {
                         An error occurred!
                     </h1>
                     <p className="text-lg">
-                        {error.message}
+                        {error ?? apiData.error}
                     </p>
                 </div>
             </Center>
         </>
 
     )
-
+    
     return (
         <>
             <Head>
