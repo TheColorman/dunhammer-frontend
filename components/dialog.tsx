@@ -79,6 +79,17 @@ function Close({ asChild, className, children }: { asChild?: boolean, className?
   )
 }
 
+function Title({ asChild, className, children }: { asChild?: boolean, className?: string, children?: ReactNode }) {
+  return (
+    <DialogP.Title
+      asChild={asChild}
+      className={" " + className}
+    >
+      {children}
+    </DialogP.Title>
+  )
+}
+
 function Description({ asChild, className, children }: { asChild?: boolean, className?: string, children?: ReactNode }) {
   return (
     <DialogP.Description
@@ -90,4 +101,4 @@ function Description({ asChild, className, children }: { asChild?: boolean, clas
   )
 }
 
-export { Dialog, Trigger, Portal, Overlay, Content, Close, Description }
+export { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description }
