@@ -60,6 +60,18 @@ type ShopCollection = {
     valid?: boolean;
 }
 
+type SqlShopCollection = {
+    collection_id: number;
+    collection_name: string;
+    collection_description: string;
+    background_id: number;
+    background_name: string;
+    background_description: string;
+    price: number;
+    thumbnail: string;
+    image: string;
+}
+
 export type ShopBackgrounds = {
     collections: ShopCollection[];
 }
