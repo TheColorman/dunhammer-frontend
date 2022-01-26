@@ -2,19 +2,8 @@ import { ReactNode } from "react"
 import Center from "../components/center"
 import Footer from "../components/footer"
 import Header from "../components/header"
-import { ScrollArea, Viewport, Corner, Scrollbar, Thumb } from "../components/scrollArea"
 import * as ScrollAreaP from "@radix-ui/react-scroll-area"
 
-function Box({ className, children }: { className?: string, children: ReactNode }) {
-    return (
-        <div className={className}>{children}</div>
-    )
-}
-function Text({ children }: { children: ReactNode }) {
-    return (
-        <div className="text-violet-900 text-base leading-5 font-medium">{children}</div>
-    )
-}
 function Tag({ children }: { children: ReactNode }) {
     return (
         <div className="w-12 bg-pink-900 text-sm leading-5 mt-[10] border-t-2 border-t-pink-800 pt-[10] mx-2">{children}</div>
