@@ -90,10 +90,57 @@ export default async function handler(
             console.error(e)
             res.status(500).json({ error: 'An error occurred.' })
         }
+    } else if (req.method === "DELETE") {
+        const session = (await getSession({ req })) as ExtendedSession
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse  
-) {
-    res.status(200).json(response)
+        if (!session) {
+            res.status(401).json({ error: 'Not authenticated' })
+            return
+        }
+        if (!session.user.discordId) {
+            res.status(401).json({ error: 'No Discord ID linked to session. (is the Discord API being called correctly?)' })
+            return
+        }
+        if (!["298842558610800650", "458207669778382849", "850106314650812456"].includes(session.user.discordId)) {
+            res.status(401).json({ error: 'You do not have permission to do this.' })
+            return
+        }
+
+        const { backgroundIds, collectionIds } = req.body as { backgroundIds: string[], collectionIds: string[] }
+        if (!backgroundIds && !collectionIds) {
+            res.status(400).json({ error: 'Invalid request' })
+            return
+        }
+
+        try {
+            if (collectionIds) {
+                for (const collectionId of collectionIds) {
+                    await query({
+                        query: "DELETE FROM `background_collection` WHERE `collection_id` = ?",
+                        values: [collectionId]
+                    })
+                    await query({
+                        query: "DELETE FROM `collections` WHERE `id` = ?",
+                        values: [collectionId]
+                    })
+                }
+            }
+            if (backgroundIds) {
+                for (const backgroundId of backgroundIds) {
+                    await query({
+                        query: "DELETE FROM `background_collection` WHERE `background_id` = ?",
+                        values: [backgroundId]
+                    })
+                    await query({
+                        query: "DELETE FROM `backgrounds` WHERE `id` = ?",
+                        values: [backgroundId]
+                    })
+                }
+            }
+            res.status(200).json({ success: true })
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({ error: 'An error occurred.' })
+        }
+    }
 }
