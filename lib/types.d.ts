@@ -57,6 +57,7 @@ type ShopCollection = {
     name: string;
     description: string;
     backgrounds: ShopBackground[];
+    valid?: boolean;
 }
 
 export type ShopBackgrounds = {
