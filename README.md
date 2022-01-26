@@ -9,7 +9,7 @@ Gitmoji guide:
 | 🐛 | Bug fix |
 | ✨ | New component/lib |
 | 🚸 | Usability/readability |
-| 🎨 | Design |
+| 🎨 | Code design |
 | 💄 | CSS change |
 | 🌲 | DOM change |
 | 👽 | API change |
