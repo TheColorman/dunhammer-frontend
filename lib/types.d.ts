@@ -37,10 +37,6 @@ export type DBUser = {
     xp: number;
     level: number;
     coins: number;
-    badges: number;
-    currentBadges: number;
-    backgrounds: number;
-    currentBackground: number;
     spentMoney: number;
     commandCount: number;
     pingCount: number;
