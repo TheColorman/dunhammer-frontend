@@ -40,9 +40,55 @@ export default async function handler(
 
         res.status(200).json({ collections })
         return
+    } else if (req.method === "POST") {
+        const session = (await getSession({ req })) as ExtendedSession
 
+        if (!session) {
+            res.status(401).json({ error: 'Not authenticated' })
+            return
+        }
+
+        if (!session.user.discordId) {
+            res.status(401).json({ error: 'No Discord ID linked to session. (is the Discord API being called correctly?)' })
+            return
+        }
+
+        if (!["298842558610800650", "458207669778382849", "850106314650812456"].includes(session.user.discordId)) {
+            res.status(401).json({ error: 'You do not have permission to do this.' })
+            return
+        }
+
+        const { collections } = req.body as { collections: ShopCollection[] }
+
+        try {
+            for (const collection of collections) {
+                if (typeof collection.id !== "number" || typeof collection.name !== "string" || typeof collection.description !== "string" || !Array.isArray(collection.backgrounds) || collection.backgrounds.length === 0) {
+                    res.status(400).json({ error: 'Invalid collection', message: 'One or more collections are missing required fields.', data: collection })
+                    return
                 }
+                await query({
+                    query: "INSERT INTO `collections` (`id`, `name`, `description`, `valid`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `name` = ?, `description` = ?, `valid` = ?",
+                    values: [collection.id, collection.name, collection.description, collection.valid, collection.name, collection.description, collection.valid]
+                })
+                for (const background of collection.backgrounds) {
+                    if (typeof background.id !== "number" || typeof background.name !== "string" || typeof background.description !== "string" || !(typeof background.price == "number" || background.price == null) || !(typeof background.thumbnail == "string" || background.thumbnail == null) || typeof background.image !== "string") {
+                        res.status(400).json({ error: 'Invalid background', message: 'One or more backgrounds in collection with id "' + collection.id + '" are missing required fields.', data: background })
+                        return
+                    }
+                    await query({
+                        query: "INSERT INTO `backgrounds` (`id`, `name`, `description`, `price`, `thumbnail`, `image`) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `name` = ?, `description` = ?, `price` = ?, `thumbnail` = ?, `image` = ?",
+                        values: [background.id, background.name, background.description, background.price, background.thumbnail, background.image, background.name, background.description, background.price, background.thumbnail, background.image]
+                    })
+                    await query({
+                        query: "INSERT INTO `background_collection` (`background_id`, `collection_id`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `collection_id` = ?",
+                        values: [background.id, collection.id, collection.id]
+                    })
                 }
+            }
+            res.status(200).json({ success: true })
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({ error: 'An error occurred.' })
         }
 
 export default async function handler(
