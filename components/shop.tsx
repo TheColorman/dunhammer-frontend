@@ -2,8 +2,31 @@ import Image from "next/image"
 import useSWR from "swr"
 import { ShopBackgrounds } from "../lib/types"
 import { ScrollArea, Viewport, Scrollbar, Thumb } from "./scrollArea"
+import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "./dialog"
+import { ReactNode } from "react"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+const BuyDialog = () => (
+  <Dialog>
+    <Trigger>
+    </Trigger>
+    <Portal>
+      <Overlay />
+      <Content>
+        <Title>
+
+        </Title>
+        <Description>
+
+        </Description>
+        <Close>
+
+        </Close>
+      </Content>
+    </Portal>
+  </Dialog>
+)
 
 export default function BackgroundSale() {
   const { data: apiData, error: apiError } = useSWR('/api/shop/background', fetcher)
@@ -64,7 +87,12 @@ export default function BackgroundSale() {
                                   {background.price}
                                 </span>
                               </div>
-                              <button className="row-span-3 rounded-b-3xl bg-gradient-to-br from-[#4b7d34] via-[#347d39] to-[#34747d] hover:from-[#669546] hover:via-[#46954a] hover:to-[#469581] transition-colors">
+                              <button
+                                className="row-span-3 rounded-b-3xl bg-gradient-to-br from-[#4b7d34] via-[#347d39] to-[#34747d] hover:from-[#669546] hover:via-[#46954a] hover:to-[#469581] transition-colors"
+                                onClick={() => {
+                                  
+                                }}
+                              >
                                 <span className="text-xl font-semibold text-slate-100">Buy</span>
                               </button>
                             </>
