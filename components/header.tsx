@@ -51,14 +51,14 @@ export default function Header() {
                             {!dbUserLoading && !error && (
                                 <div className="rounded-full bg-black bg-opacity-30 flex py-1 px-2">
                                     <p className="text-yellow-500 inline-flex items-baseline">
-                                        <div className="self-center w-5 h-5">
+                                        <span className="self-center w-5 h-5">
                                             <Image
                                                 src="/images/DunhammerCoin.png"
                                                 alt="Dunhammer Coin"
                                                 width={16}
                                                 height={16}
                                             />
-                                        </div>
+                                        </span>
                                         {apiData.coins}
                                     </p>
                                     <Link
