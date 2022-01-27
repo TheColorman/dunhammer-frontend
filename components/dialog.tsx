@@ -60,7 +60,7 @@ function Content({ asChild, forceMount, onOpenAutoFocus, onCloseAutoFocus, onEsc
       onEscapeKeyDown={onEscapeKeyDown}
       onPointerDownOutside={onPointerDownOutside}
       onInteractOutside={onInteractOutside}
-      className={`bg-black/60 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-md max-h-[85vh] p-[25] focus:outline-none rounded-xl backdrop-blur ${styles.content} ${className}`}
+      className={`bg-black/60 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-xl max-h-[85vh] p-[25] focus:outline-none rounded-xl backdrop-blur ${styles.content} ${className}`}
     >
       {children}
     </DialogP.Content>
