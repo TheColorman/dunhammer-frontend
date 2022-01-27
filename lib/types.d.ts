@@ -87,3 +87,8 @@ export type AccessTokenResponse = {
     refresh_token: string;
     scope: string;
 }
+
+export type BackgroundsBuyResponse = {
+    error?: "Not authenticated" | "No Discord ID linked to session." | "No background ID provided" | "This background either doesn't exist, or it doesn't have any active collection." | "Failed to get user from database." | "You already own this background." | "This background isn't for sale." | "You don't have enough coins.";
+    success?: true;
+}
