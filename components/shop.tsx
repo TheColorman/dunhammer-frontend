@@ -1,13 +1,13 @@
 import Image from "next/image"
 import useSWR from "swr"
-import { BackgroundsBuyResponse, DBUser, ShopBackground, ShopBackgrounds } from "../lib/types"
+import { APIUser, BackgroundsBuyResponse, ShopBackground, ShopBackgrounds } from "../lib/types"
 import { ScrollArea, Viewport, Scrollbar, Thumb } from "./scrollArea"
 import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "./dialog"
 import { ReactNode } from "react"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, background: ShopBackground, user: DBUser | undefined }) => (
+const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, background: ShopBackground, user: APIUser | undefined }) => (
   <Dialog>
     {trigger}
     <Portal>
@@ -122,7 +122,7 @@ export default function BackgroundSale() {
     </div>
   )
   const bgData = backgroundApiData as ShopBackgrounds
-  const userData = userApiData as DBUser | undefined
+  const userData = userApiData as APIUser | undefined
 
   return (
     <>
