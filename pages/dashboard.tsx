@@ -81,7 +81,7 @@ export default function Dashboard() {
         </>
 
     )
-    
+
     return (
         <>
             <Head>
@@ -156,14 +156,14 @@ export default function Dashboard() {
                                         <h1 className="text-xl">Inventory</h1>
                                     </Tabs.Content>
                                     <Tabs.Content value="backgrounds" className="tabsContent">
-                                    <h1 className="text-xl">Background shop</h1>
-                                    <Backgrounds />
+                                        <h1 className="text-xl">Background shop</h1>
+                                        <Backgrounds />
                                     </Tabs.Content>
                                     <Tabs.Content value="modules" className="tabsContent">
-                                    <h1 className="text-xl">Module shop</h1>
+                                        <h1 className="text-xl">Module shop</h1>
                                     </Tabs.Content>
                                     <Tabs.Content value="roulette" className="tabsContent">
-                                    <h1 className="text-xl">Roulette</h1>
+                                        <h1 className="text-xl">Roulette</h1>
                                     </Tabs.Content>
                                 </Tabs.Root>
                             </div>
