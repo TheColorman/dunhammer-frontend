@@ -9,6 +9,7 @@ import Center from "../components/center"
 import Footer from "../components/footer"
 import XPChart from "../components/xpchart"
 import Backgrounds from "../components/dashboard_tabs/backgrounds"
+import Inventory from "../components/dashboard_tabs/inventory"
 import { DBUser, ExtendedSession } from "../lib/types.d"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -154,6 +155,7 @@ export default function Dashboard() {
                                     </div>
                                     <Tabs.Content value="inventory" className="tabsContent">
                                         <h1 className="text-xl">Inventory</h1>
+                                        <Inventory />
                                     </Tabs.Content>
                                     <Tabs.Content value="backgrounds" className="tabsContent">
                                         <h1 className="text-xl">Background shop</h1>
