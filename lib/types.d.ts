@@ -43,6 +43,15 @@ export type DBUser = {
     inviteCount: number;
 }
 
+export type DBBackground = {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    thumbnail: string;
+    image: string;
+}
+
 type ShopBackground = {
     id: number;
     name: string;
