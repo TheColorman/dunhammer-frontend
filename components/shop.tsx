@@ -153,7 +153,19 @@ export default function BackgroundSale() {
                           <p className="text-sm text-indigo-300 italic">{background.description}</p>
                         </div>
                         <div className="w-full h-24 rounded-3xl bg-black/40 shadow-lg">
-                          {background.price !== null && (
+                          {userData && userData.backgrounds.find((bg) => bg.id === background.id) && (
+                            <div className="w-full h-full grid grid-rows-5">
+                              <div className="row-span-2 flex items-center justify-center">
+                                <span className="text-sm text-slate-400">
+                                  Owned by you
+                                </span>
+                              </div>
+                              <button className="row-span-3 h-full rounded-b-3xl bg-gradient-to-br from-[#253d1a] via-[#1b411d] to-[#1b3b3f] hover:from-[#3c5829] hover:via-[#28532a] hover:to-[#27554a] transition-colors hover:cursor-not-allowed">
+                                <span className="text-xl font-semibold text-slate-300">Bought</span>
+                              </button>
+                            </div>
+                          )}
+                          {!userData || !userData.backgrounds.find((bg) => bg.id === background.id) && background.price !== null && (
                             <BuyDialog
                               trigger={(
                                 <Trigger className="w-full h-full grid grid-rows-5">
