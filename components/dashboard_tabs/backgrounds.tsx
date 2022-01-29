@@ -108,7 +108,7 @@ const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, backgrou
   </Dialog >
 )
 
-export default function BackgroundSale() {
+export default function Backgrounds() {
   const { data: backgroundApiData, error: apiError } = useSWR('/api/shop/background', fetcher)
   const { data: userApiData } = useSWR('/api/user', fetcher)
   const error = apiError || backgroundApiData?.error
