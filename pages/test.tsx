@@ -3,7 +3,7 @@ import Center from "../components/center"
 import Footer from "../components/footer"
 import Header from "../components/header"
 import * as ScrollAreaP from "@radix-ui/react-scroll-area"
-import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "../components/dialog"
+import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "../components/radix/dialog"
 
 function Tag({ children }: { children: ReactNode }) {
   return (

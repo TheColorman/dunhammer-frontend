@@ -8,7 +8,7 @@ import Header from "../components/header"
 import Center from "../components/center"
 import Footer from "../components/footer"
 import XPChart from "../components/xpchart"
-import BackgroundSale from "../components/shop"
+import BackgroundSale from "../components/dashboard_tabs/shop"
 import { DBUser, ExtendedSession } from "../lib/types.d"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())

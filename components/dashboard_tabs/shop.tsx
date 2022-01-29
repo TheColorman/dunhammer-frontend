@@ -1,8 +1,8 @@
 import Image from "next/image"
 import useSWR from "swr"
-import { APIUser, BackgroundsBuyResponse, ShopBackground, ShopBackgrounds } from "../lib/types"
-import { ScrollArea, Viewport, Scrollbar, Thumb } from "./scrollArea"
-import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "./dialog"
+import { APIUser, BackgroundsBuyResponse, ShopBackground, ShopBackgrounds } from "../../lib/types"
+import { ScrollArea, Viewport, Scrollbar, Thumb } from "../radix/scrollArea"
+import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "../radix/dialog"
 import { ReactNode } from "react"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -160,7 +160,7 @@ export default function BackgroundSale() {
                                   Owned by you
                                 </span>
                               </div>
-                              <button className="row-span-3 h-full rounded-b-3xl bg-gradient-to-br from-[#253d1a] via-[#1b411d] to-[#1b3b3f] hover:from-[#3c5829] hover:via-[#28532a] hover:to-[#27554a] transition-colors hover:cursor-not-allowed">
+                              <button className="row-span-3 h-full rounded-b-3xl bg-gradient-to-br from-[#253d1a] via-[#1b411d] to-[#1b3b3f] transition-colors hover:cursor-not-allowed">
                                 <span className="text-xl font-semibold text-slate-300">Bought</span>
                               </button>
                             </div>
@@ -198,7 +198,7 @@ export default function BackgroundSale() {
                                   Limited
                                 </span>
                               </div>
-                              <button className="row-span-3 rounded-b-3xl bg-gradient-to-br from-[#7d3458] via-[#7d3434] to-[#7d4f34] hover:from-[#95466d] hover:via-[#954646] hover:to-[#956a46] transition-colors hover:cursor-not-allowed">
+                              <button className="row-span-3 rounded-b-3xl bg-gradient-to-br from-[#7d3458] via-[#7d3434] to-[#7d4f34] transition-colors hover:cursor-not-allowed">
                                 <span className="text-xl font-semibold text-slate-100">Not for sale</span>
                               </button>
                             </div>
