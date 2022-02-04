@@ -53,12 +53,21 @@ const Home: NextPage = () => {
                   </button>
                 </a>
               </div>
-              <div className="mt-4 mb-8">
+              <div className="mt-4">
                 <Link href="/dashboard">
                   <a>
                     <button className="btn btn-secondary">Dashboard</button>
                   </a>
                 </Link>
+              </div>
+              <div className="mt-2 mb-8">
+                <p className="text-gray-500 dark:text-gray-300">
+                  Need help? Check out the{" "}
+                  <Link href="/docs">
+                    <a>documentation</a>
+                  </Link>
+                  .
+                </p>
               </div>
               {/* Shape thingy */}
               <div className={styles["custom-shape-divider-bottom-1640125492"]}>
