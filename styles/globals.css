@@ -27,8 +27,7 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply text-sky-500 hover:text-sky-600 hover:underline;
 }
 
 * {
