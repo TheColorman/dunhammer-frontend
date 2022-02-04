@@ -144,7 +144,7 @@ export default function Dashboard() {
                         </div>
                         <div className="w-full border-t-2 border-black border-opacity-30 mt-12">
                             <div className="py-16 mx-16 lg:mx-32 2xl:mx-96">
-                                <Tabs.Root defaultValue="backgrounds" className="tabsContainer">
+                                <Tabs.Root defaultValue="inventory" className="tabsContainer">
                                     <div className="tabsListContainer">
                                         <Tabs.List className="rounded-tl-xl rounded-br-xl bg-black bg-opacity-30 w-max">
                                             <Tabs.Trigger className="tabsTrigger rounded-tl-xl border-r border-gray-800/80" value="inventory"><h1 className="text-lg">Inventory</h1></Tabs.Trigger>
