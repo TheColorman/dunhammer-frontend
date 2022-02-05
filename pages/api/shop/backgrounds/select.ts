@@ -27,10 +27,17 @@ export default async function handler(
 
 
     try {
+        // Deselect all backgrounds
+        await query({
+            query: "UPDATE `user_background` SET `selected` = 0 WHERE `user_id` = ?",
+            values: [session.user.discordId]
+        })
+        // Select chosen background
         await query({
             query: `UPDATE user_background SET selected = 1 WHERE user_id = ? AND background_id = ?`,
             values: [session.user.discordId, req.query.id]
         })
+        res.status(200).json({ success: true })
     } catch (error) {
         res.status(500).json({ error });
     }
