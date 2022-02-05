@@ -160,7 +160,7 @@ export default function Backgrounds() {
                                   Owned by you
                                 </span>
                               </div>
-                              <button className="row-span-3 h-full rounded-b-3xl bg-gradient-to-br from-[#253d1a] via-[#1b411d] to-[#1b3b3f] transition-colors hover:cursor-not-allowed">
+                              <button className="row-span-3 h-full rounded-b-3xl bg-gradient-to-br from-[#4b7d34] via-[#347d39] to-[#34747d] transition-colors hover:cursor-not-allowed opacity-50">
                                 <span className="text-xl font-semibold text-slate-300">Bought</span>
                               </button>
                             </div>
