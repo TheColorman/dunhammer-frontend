@@ -191,7 +191,7 @@ export default function Backgrounds() {
                               user={userData}
                             />
                           )}
-                          {background.price === null && (
+                          {background.price === null && !userData?.backgrounds.find((bg) => bg.id === background.id) && (
                             <div className="w-full h-full grid grid-rows-5">
                               <div className="row-span-2 flex items-center justify-center">
                                 <span className="text-sm text-slate-400">
