@@ -1,18 +1,15 @@
 import Image from "next/image"
-import { useSession } from "next-auth/react"
 import useSWR from "swr"
 import { APIUser } from "../../lib/types"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Inventory() {
-  const { data: session, status } = useSession()
-  const loading = status === "loading"
 
   const { data: apiData, error, mutate } = useSWR("/api/user", fetcher)
   const dbUserLoading = !apiData
 
-  if (loading || dbUserLoading) {
+  if (dbUserLoading) {
     return (
       <div className="w-full h-full flex justify-center content-center">
         <div className="spinner" role="status">
