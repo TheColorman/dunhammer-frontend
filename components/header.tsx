@@ -21,7 +21,7 @@ export default function Header() {
 
   // Sticky banner with Dunhammer logo
   return (
-    <div className="fixed top-0 z-40 w-screen backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-gray-900/10 dark:border-gray-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-gray-900/75">
+    <div className="fixed top-0 z-40 h-20 w-screen backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-gray-900/10 dark:border-gray-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-gray-900/75">
       <div className="max-w-8xl mx-auto">
         <div className="py-4 border-b border-gray-900/10 lg:px-8 lg:border-0 dark:border-gray-300/10 mx-4 lg:mx-0">
           <div className="relative flex items-center">
