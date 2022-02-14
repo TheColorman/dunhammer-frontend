@@ -22,7 +22,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
-  @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900;
+  @apply bg-gradient-to-tr from-blue-900 to-fuchsia-900 top-0 absolute;
   @apply dark:bg-primary-background;
 }
 
