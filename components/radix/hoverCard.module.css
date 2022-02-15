@@ -1,0 +1,108 @@
+.content {
+  &[data-state="open"] {
+    &[data-side="top"] {
+      animation: slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-animation: slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &[data-side="right"] {
+      animation: slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-animation: slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &[data-side="bottom"] {
+      animation: slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-animation: slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &[data-side="left"] {
+      animation: slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-animation: slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+}
+
+/* Up */
+@keyframes slideUpAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes slideUpAndFade {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+/* Right */
+@keyframes slideRightAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes slideRightAndFade {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+/* Down */
+@keyframes slideDownAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes slideDownAndFade {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+/* Left */
+@keyframes slideLeftAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes slideLeftAndFade {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}

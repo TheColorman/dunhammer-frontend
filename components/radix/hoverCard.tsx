@@ -1,5 +1,6 @@
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
 import { ReactNode } from 'react';
+import styles from "./hoverCard.module.css"
 
 function HoverCard({ defaultOpen, open, onOpenChange, openDelay, closeDelay, children }: { defaultOpen?: boolean, open?: boolean, onOpenChange?: (open: boolean) => void, openDelay?: number, closeDelay?: number, children?: ReactNode }) {
     return (
@@ -38,7 +39,7 @@ function Content({ asChild, forceMount, portalled, side, sideOffset, align, alig
             alignOffset={alignOffset}
             avoidCollisions={avoidCollisions}
             collisionTolerance={collisionTolerance}
-            className={"p-2 rounded-lg bg-gray-800/80 " + className}
+            className={"p-2 rounded-lg bg-gray-800/80 " + className + " " + styles.content}
         >
             {children}
         </HoverCardPrimitive.Content>
