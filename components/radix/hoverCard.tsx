@@ -38,7 +38,7 @@ function Content({ asChild, forceMount, portalled, side, sideOffset, align, alig
             alignOffset={alignOffset}
             avoidCollisions={avoidCollisions}
             collisionTolerance={collisionTolerance}
-            className={className}
+            className={"p-2 rounded-lg bg-gray-800/80 " + className}
         >
             {children}
         </HoverCardPrimitive.Content>
@@ -52,7 +52,7 @@ function Arrow({ asChild, width, height, offset, children, className }: { asChil
             width={width}
             height={height}
             offset={offset}
-            className={className}
+            className={"fill-gray-800/80 " + className}
         >
             {children}
         </HoverCardPrimitive.Arrow>

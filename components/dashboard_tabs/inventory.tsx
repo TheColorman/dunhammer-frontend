@@ -8,11 +8,11 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const Card = ({ background, DynamicTrigger }: { background: APIUserDBBackground, DynamicTrigger: ReactNode }) => {
   return (
-    <HoverCard closeDelay={10000000}>
+    <HoverCard>
       <Trigger>
         {DynamicTrigger}
       </Trigger>
-      <Content className="absolute -left-[188px] bg-gray-800/80 p-2" side="top">
+      <Content className={background.selected ? "bg-pink-800/80" : ""} side="top">
         <h1 className="text-lg">{background.name}</h1>
         <p className="text-sm">{background.description}</p>
         {(background.price === 0 || background.price) ? (
@@ -30,7 +30,7 @@ const Card = ({ background, DynamicTrigger }: { background: APIUserDBBackground,
         ) : (
           <p className="text-yellow-500 italic text-xs">Unobtainable</p>
         )}
-        <Arrow className="fill-gray-800/80" />
+        <Arrow className={background.selected ? "fill-pink-800/80" : ""} />
       </Content>
     </HoverCard>
   )
