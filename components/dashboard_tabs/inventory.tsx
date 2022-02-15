@@ -7,8 +7,9 @@ import type { APIUser, APIUserDBBackground } from "../../lib/types"
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const Card = ({ background, DynamicTrigger }: { background: APIUserDBBackground, DynamicTrigger: ReactNode }) => {
+  const cardDelay = 200;
   return (
-    <HoverCard>
+    <HoverCard openDelay={cardDelay} closeDelay={cardDelay}>
       <Trigger>
         {DynamicTrigger}
       </Trigger>
