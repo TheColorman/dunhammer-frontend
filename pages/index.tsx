@@ -19,9 +19,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="flex flex-col min-h-screen">
-        <header>
-          <Header />
-        </header>
+        <Header />
 
         <main className="flex-grow">
           <div className="section-container">
