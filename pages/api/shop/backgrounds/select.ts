@@ -15,7 +15,7 @@ export default async function handler(
         return
     }
     if (!session.user.discordId) {
-        res.status(401).json({ error: 'No Discord ID linked to session. (is the Discord API being called correctly?)' })
+        res.status(401).json({ error: 'No Discord ID linked to session. (Try re-authenticating.)' })
         return
     }
 
