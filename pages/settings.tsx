@@ -1,10 +1,15 @@
 import Header from "../components/header"
 import Footer from "../components/footer"
 import Image from "next/image"
+import Head from "next/head"
 
 export default function Settings() {
   return (
     <>
+      <Head>
+        <title>Settings | Dunhammer</title>
+      </Head>
+
       <Header />
       <section className="pt-20 w-full h-full text-white flex pr-[18px]">
         <div className="w-max bg-black/50 p-2">
