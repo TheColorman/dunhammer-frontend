@@ -6,8 +6,8 @@ export interface ExtendedSession extends Session {
         name?: string | null;
         email?: string | null;
         image?: string | null;
-        discordId: string | null,
-        discriminator: string | null,
+        discordId?: string | null,
+        discriminator?: string | null,
     }
 }
 export type DiscordUser = {
