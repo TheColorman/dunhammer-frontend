@@ -90,9 +90,7 @@ export default function Dashboard() {
             </Head>
 
             <div className="flex flex-col min-h-screen">
-                <header>
-                    <Header />
-                </header>
+                <Header />
                 <main className="flex-grow">
                     <div className="section-container">
                         <div className="pt-36 flex justify-center">
@@ -172,9 +170,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </main>
-                <footer>
-                    <Footer />
-                </footer>
+                <Footer />
             </div>
         </>
     )

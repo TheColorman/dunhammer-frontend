@@ -92,16 +92,14 @@ const Home: NextPage = () => {
           </div>
         </main>
 
-        <footer>
-          {query.error && (
-            <Alert
-              type="error"
-              message={`A ${(query.error as string).toLowerCase()} error has occured.`}
-              name="ERROR"
-            />
-          )}
-          <Footer />
-        </footer>
+        {query.error && (
+          <Alert
+            type="error"
+            message={`A ${(query.error as string).toLowerCase()} error has occured.`}
+            name="ERROR"
+          />
+        )}
+        <Footer />
       </div>
     </>
   )
