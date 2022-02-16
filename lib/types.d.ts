@@ -52,6 +52,12 @@ export type DBBackground = {
     image: string;
 }
 
+export type DBGuild = {
+    id: string;
+    name: string;
+    icon: string;
+}
+
 type ShopBackground = {
     id: number;
     name: string;
