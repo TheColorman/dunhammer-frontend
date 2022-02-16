@@ -50,6 +50,9 @@ export default NextAuth({
             extSession.user.discordId = data.id
             extSession.user.discriminator = data.discriminator
 
+            // Set user ID in session
+            extSession.user.id = user.id
+
             return extSession
         }
     }
