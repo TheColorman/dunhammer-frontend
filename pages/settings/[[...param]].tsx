@@ -2,6 +2,7 @@ import Header from "../../components/header"
 import Footer from "../../components/footer"
 import Image from "next/image"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 function ProfileSettings() {
   return (
@@ -21,6 +22,9 @@ function ServerSettings() {
 }
 
 export default function Settings() {
+  const router = useRouter()
+  const param = router.query.param as string[] | undefined
+
   return (
     <>
       <Head>
@@ -56,7 +60,8 @@ export default function Settings() {
             </ul>
           </div>
           <div className="m-8 w-full rounded-2xl bg-black/50 flex flex-col items-center py-10">
-            <ProfileSettings />
+            <ProfileSettings /> <br />
+            <p>Param: {param ? "[" + param.join(", ") + "]" : "None!"}</p>
           </div>
         </section>
       </main>
