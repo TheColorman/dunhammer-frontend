@@ -10,7 +10,7 @@ import Footer from "../components/footer"
 import XPChart from "../components/xpchart"
 import Backgrounds from "../components/dashboard_tabs/backgrounds"
 import Inventory from "../components/dashboard_tabs/inventory"
-import { DBUser, ExtendedSession } from "../lib/types.d"
+import type { APIUser, ExtendedSession } from "../lib/types.d"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const getLevel = (xp: number) => (((Math.pow(8100 * xp + 300 * Math.sqrt(729 * xp * xp + 61613700), 1 / 3)) / 30) - (590) / Math.pow((8100 * xp + 300 * Math.sqrt(729 * xp * xp + 61613700)), 1 / 3))
@@ -18,33 +18,49 @@ const getXp = (level: number) => 5 * (118 * level + 2 * level * level * level) /
 
 export default function Dashboard() {
   const { data, status } = useSession()
-  const loading = status === 'loading'
+  const sessionIsLoading = status === 'loading'
   const session = data as ExtendedSession
 
-  const { data: apiData, error } = useSWR('/api/user', fetcher)
-  const dbUserLoading = !apiData
+  const { data: apiResUser, error } = useSWR('/api/user', fetcher)
+  const apiUser = apiResUser as APIUser | undefined
+  const userIsLoading = !apiUser
+  const userHasError = (apiUser && "error" in apiUser) || error
 
-  if (loading || dbUserLoading) return (
+  if (sessionIsLoading || userIsLoading) return (
     <>
+      <Head>
+        <title>Dunhammer | Loading...</title>
+      </Head>
       <Header />
       <Center>
         <div className="spinner" role="status">
           <span className="hidden">Loading...</span>
         </div>
       </Center>
+      <Footer />
     </>
   )
 
-  const dbUser = apiData as DBUser
-
-  const currentLevel = Math.floor(getLevel(dbUser.xp))
-  const xpForNextLevel = getXp(currentLevel + 1) - getXp(currentLevel)
-  const xpForCurrentLevel = dbUser.xp - getXp(currentLevel)
-  const percentage = (xpForCurrentLevel / xpForNextLevel) * 100
-
+  if (userHasError) return (
+    <>
+      <Head>
+        <title>Dunhammer | Error!</title>
+      </Head>
+      <Header />
+      <Center>
+        <h1 className="text-2xl">Oops, looks like something went wrong</h1>
+        <p>{"error" in apiUser ? apiUser.error : "An unknown error occured."}</p>
+        <p className="text-xs">(try reloading, that might help)</p>
+      </Center>
+      <Footer />
+    </>
+  )
 
   if (!session) return (
     <>
+      <Head>
+        <title>Dunhammer | Not signed in</title>
+      </Head>
       <Header />
       {/* Notify User that they're not logged in */}
       <Center>
@@ -66,22 +82,10 @@ export default function Dashboard() {
     </>
   )
 
-  if (error || apiData.error) return (
-    <>
-      <Header />
-      <Center>
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">
-            An error occurred!
-          </h1>
-          <p className="text-lg">
-            {error ?? apiData.error}
-          </p>
-        </div>
-      </Center>
-    </>
-
-  )
+  const currentLevel = Math.floor(getLevel(apiUser.xp))
+  const xpForNextLevel = getXp(currentLevel + 1) - getXp(currentLevel)
+  const xpForCurrentLevel = apiUser.xp - getXp(currentLevel)
+  const percentage = (xpForCurrentLevel / xpForNextLevel) * 100
 
   return (
     <>

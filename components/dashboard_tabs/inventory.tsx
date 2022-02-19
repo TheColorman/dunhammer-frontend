@@ -2,7 +2,7 @@ import Image from "next/image"
 import useSWR from "swr"
 import { HoverCard, Arrow, Content, Trigger } from "../radix/hoverCard"
 import type { ReactNode } from "react"
-import type { APIUser, DBUserBackground } from "../../lib/types"
+import type { APIUserBackgrounds, DBUserBackground } from "../../lib/types"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -38,11 +38,13 @@ const Card = ({ background, DynamicTrigger }: { background: DBUserBackground, Dy
 }
 
 export default function Inventory() {
+  const { data: apiResUserBackgrounds, error, mutate } = useSWR('/api/user/backgrounds', fetcher)
+  const apiUserBackgrounds = apiResUserBackgrounds as APIUserBackgrounds | undefined
+  const isLoading = !apiUserBackgrounds
+  const hasError = (apiUserBackgrounds && "error" in apiUserBackgrounds) || error
 
-  const { data: apiData, error, mutate } = useSWR("/api/user", fetcher)
-  const dbUserLoading = !apiData
 
-  if (dbUserLoading) {
+  if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center content-center">
         <div className="spinner" role="status">
@@ -52,57 +54,50 @@ export default function Inventory() {
     )
   }
 
-  if (error) {
+  if (hasError) {
     return (
       <div className="w-full h-full flex justify-center content-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold">
-            Something went wrong!
-          </h1>
-          <p className="text-lg">
-            Please try again later.
-          </p>
+          <h1 className="text-2xl">Oops, looks like something went wrong</h1>
+          <p>{"error" in apiUserBackgrounds ? apiUserBackgrounds.error : "An unknown error occured."}</p>
+          <p className="text-xs">(try reloading, that might help)</p>
         </div>
       </div>
     )
   }
 
-  const dbUser = apiData as APIUser
-
   return (
     <>
       <p className="text-lg my-2">Owned backgrounds</p>
       <div className="h-full w-full grid grid-flow-row-dense grid-cols-4 gap-1">
-        {dbUser.backgrounds.map((background) => (
+        {apiUserBackgrounds.map((background) => (
           <div
             key={background.id}
             className="aspect-square flex"
           >
             {background.selected ? (
-              <button>
-                <div className="w-full h-full rounded-lg border-4 border-pink-600 bg-pink-600 flex justify-center text-center relative group">
-                  <Image
-                    className="rounded-lg"
-                    src={background.image}
-                    alt={background.name}
-                    width={512}
-                    height={512}
+              <button className="w-full h-full rounded-lg border-4 border-pink-600 bg-pink-600 flex justify-center text-center relative group">
+                <Image
+                  className="rounded-lg"
+                  src={background.image}
+                  alt={background.name}
+                  width={512}
+                  height={512}
+                />
+                <div className="absolute top-0 left-0">
+                  <Card
+                    background={background}
+                    DynamicTrigger={(
+                      <div className="opacity-0 group-hover:opacity-100 transition-all pr-2 pl-1 pb-1 pt-[2px] bg-pink-600/80 rounded-br-2xl text-white/70 hover:text-white/100">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
                   />
-                  <div className="absolute top-0 left-0">
-                    <Card
-                      background={background}
-                      DynamicTrigger={(
-                        <div className="opacity-0 group-hover:opacity-100 transition-all pr-2 pl-1 pb-1 pt-[2px] bg-pink-600/80 rounded-br-2xl text-white/70 hover:text-white/100">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      )}
-                    />
-                  </div>
-                  <div className="pl-2 pt-1 bg-pink-600/80 rounded-tl-2xl absolute bottom-0 right-0">
-                    <p className="text-sm text-white">Selected</p>
-                  </div>
+                </div>
+                <div className="pl-2 pt-1 bg-pink-600/80 rounded-tl-2xl absolute bottom-0 right-0">
+                  <p className="text-sm text-white">Selected</p>
                 </div>
               </button>
             ) : (
@@ -113,27 +108,26 @@ export default function Inventory() {
                     mutate()
                   }
                 }}
+                className="h-full w-full border-4 border-transparent group relative"
               >
-                <div className="h-full w-full border-4 border-transparent group relative">
-                  <Image
-                    className="rounded-lg"
-                    src={background.image}
-                    alt={background.name}
-                    width={512}
-                    height={512}
+                <Image
+                  className="rounded-lg"
+                  src={background.image}
+                  alt={background.name}
+                  width={512}
+                  height={512}
+                />
+                <div className="absolute top-0 left-0">
+                  <Card
+                    background={background}
+                    DynamicTrigger={(
+                      <div className="opacity-0 group-hover:opacity-100 transition-all p-1 pb-[6px] pr-[6px] bg-black/50 rounded-br-2xl rounded-tl-lg text-white/40 hover:text-white/80">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
                   />
-                  <div className="absolute top-0 left-0">
-                    <Card
-                      background={background}
-                      DynamicTrigger={(
-                        <div className="opacity-0 group-hover:opacity-100 transition-all p-1 pb-[6px] pr-[6px] bg-black/50 rounded-br-2xl rounded-tl-lg text-white/40 hover:text-white/80">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      )}
-                    />
-                  </div>
                 </div>
               </button>
             )}

@@ -1,13 +1,13 @@
 import Image from "next/image"
 import useSWR from "swr"
-import { APIUser, BackgroundsBuyResponse, ShopBackground, ShopBackgrounds } from "../../lib/types"
 import { ScrollArea, Viewport, Scrollbar, Thumb } from "../radix/scrollArea"
 import { Dialog, Trigger, Portal, Overlay, Content, Close, Title, Description } from "../radix/dialog"
 import { ReactNode } from "react"
+import type { APIUser, APIUserBackgrounds, BackgroundsBuyResponse, DBUser, ShopBackground, ShopBackgrounds } from "../../lib/types"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, background: ShopBackground, user: APIUser | undefined }) => (
+const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, background: ShopBackground, user: DBUser | undefined }) => (
   <Dialog>
     {trigger}
     <Portal>
@@ -109,27 +109,41 @@ const BuyDialog = ({ trigger, background, user }: { trigger: ReactNode, backgrou
 )
 
 export default function Backgrounds() {
-  const { data: backgroundApiData, error: apiError } = useSWR('/api/shop/background', fetcher)
-  const { data: userApiData } = useSWR('/api/user', fetcher)
-  const error = apiError || backgroundApiData?.error
+  // Get api information
+    // shop backgrounds
+  const { data: apiResBackgrounds, error: backgroundError } = useSWR('/api/shop/background', fetcher)
+  const apiBackgrounds = apiResBackgrounds as ShopBackgrounds | undefined
+  const backgroundsIsLoading = !apiBackgrounds
+  const backgroundsHasError = (apiBackgrounds && "error" in apiBackgrounds) || backgroundError
+    // user
+  const { data: apiResUser, error: userError } = useSWR('/api/user', fetcher)
+  const apiUser = apiResUser as APIUser | undefined
+  const userIsLoading = !apiUser
+  const userHasError = (apiUser && "error" in apiUser) || userError
+    // user backgrounds
+  const { data: apiResUserBackgrounds, error: userBackgroundError } = useSWR('/api/user/backgrounds', fetcher)
+  const apiUserBackgrounds = apiResUserBackgrounds as APIUserBackgrounds | undefined
+  const userBackgroundsIsLoading = !apiUserBackgrounds
+  const userBackgroundsHasError = (apiUserBackgrounds && "error" in apiUserBackgrounds) || userBackgroundError
+  // Simplification
+  const isLoading = backgroundsIsLoading || userIsLoading || userBackgroundsIsLoading
+  const hasError = backgroundsHasError || userHasError || userBackgroundsHasError
 
-  if (error) return <h1 className="text-lg">Failed to load shop information</h1>
-  if (!backgroundApiData) return (
+  if (hasError) return <h1 className="text-lg">Failed to load shop information</h1>
+  if (isLoading) return (
     <div className="flex flex-row items-baseline">
       <div className="spinner" role="status">
         <span className="hidden">Loading...</span>
       </div>
     </div>
   )
-  const bgData = backgroundApiData as ShopBackgrounds
-  const userData = userApiData as APIUser | undefined
 
   return (
     <>
-      {bgData.collections.length === 0 && (
+      {apiBackgrounds.collections.length === 0 && (
         <p className="text-lg">No backgrounds on sale!</p>
       )}
-      {bgData.collections.map((collection) => (
+      {apiBackgrounds.collections.map((collection) => (
         <div key={collection.id} className="mt-2 mb-12 last:mb-0">
           <p className="text-lg">{collection.name}</p>
           <p className="text-base">{collection.description}</p>
@@ -153,7 +167,7 @@ export default function Backgrounds() {
                           <p className="text-sm text-indigo-300 italic">{background.description}</p>
                         </div>
                         <div className="w-full h-24 rounded-3xl bg-black/40 shadow-lg">
-                          {userData && userData.backgrounds.find((bg) => bg.id === background.id) && (
+                          {apiUserBackgrounds.find((bg) => bg.id === background.id) && (
                             <div className="w-full h-full grid grid-rows-5">
                               <div className="row-span-2 flex items-center justify-center">
                                 <span className="text-sm text-slate-400">
@@ -165,7 +179,7 @@ export default function Backgrounds() {
                               </button>
                             </div>
                           )}
-                          {!userData || !userData.backgrounds.find((bg) => bg.id === background.id) && background.price !== null && (
+                          {!apiUserBackgrounds.find((bg) => bg.id === background.id) && background.price !== null && (
                             <BuyDialog
                               trigger={(
                                 <Trigger className="w-full h-full grid grid-rows-5">
@@ -188,10 +202,10 @@ export default function Backgrounds() {
                                 </Trigger>
                               )}
                               background={background}
-                              user={userData}
+                              user={apiUser}
                             />
                           )}
-                          {background.price === null && !userData?.backgrounds.find((bg) => bg.id === background.id) && (
+                          {background.price === null && !apiUserBackgrounds.find((bg) => bg.id === background.id) && (
                             <div className="w-full h-full grid grid-rows-5">
                               <div className="row-span-2 flex items-center justify-center">
                                 <span className="text-sm text-slate-400">

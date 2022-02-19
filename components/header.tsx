@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
 import { signIn, signOut, useSession } from "next-auth/react"
-import useSWR from "swr";
+import useSWR from "swr"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
-import Router from "next/router";
-import type { DBUser } from "../lib/types";
+import Router from "next/router"
+import type { APIUser } from "../lib/types"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -12,11 +12,12 @@ export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
-  const { data: apiUser } = useSWR('/api/user', fetcher)
-  const userLoading = !apiUser
-  const error = apiUser?.error ?? null
+  const { data: apiResUser, error } = useSWR('/api/user', fetcher)
+  const apiUser = apiResUser as APIUser | undefined
+  const userIsLoading = !apiUser
+  const hasError = (apiUser && "error" in apiUser) || error
 
-  if (session && error) {
+  if (session && hasError) {
     Router.reload()
     return
   }
@@ -51,7 +52,7 @@ export default function Header() {
                 </a>
               </Link>
               <div className="relative flex items-center ml-auto">
-                {!userLoading && !error && (
+                {!userIsLoading && !hasError && (
                   <div className="rounded-full bg-black bg-opacity-30 flex py-1 px-2">
                     <p className="text-yellow-500 inline-flex items-baseline">
                       <span className="self-center w-5 h-5">
