@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import useSWR from "swr";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import Router from "next/router";
+import type { DBUser } from "../lib/types";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -12,12 +13,15 @@ export default function Header() {
   const loading = status === 'loading'
 
   const { data: apiUser } = useSWR('/api/user', fetcher)
-  const dbUserLoading = !apiUser
+  const userLoading = !apiUser
   const error = apiUser?.error ?? null
 
   if (session && error) {
     Router.reload()
+    return
   }
+
+  const user = apiUser.data as DBUser
 
   // Sticky banner with Dunhammer logo
   return (
@@ -49,7 +53,7 @@ export default function Header() {
                 </a>
               </Link>
               <div className="relative flex items-center ml-auto">
-                {!dbUserLoading && !error && (
+                {!userLoading && !error && (
                   <div className="rounded-full bg-black bg-opacity-30 flex py-1 px-2">
                     <p className="text-yellow-500 inline-flex items-baseline">
                       <span className="self-center w-5 h-5">
@@ -60,7 +64,7 @@ export default function Header() {
                           height={16}
                         />
                       </span>
-                      {apiUser.coins}
+                      {user.coins}
                     </p>
                     <Link
                       href="/buy"
