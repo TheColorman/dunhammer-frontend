@@ -25,7 +25,7 @@ export default async function handler(
             values: [session.user.discordId]
         })) as Array<DBUserBackground>)
 
-        res.status(200).json({ data: result })
+        res.status(200).json(result)
     } catch (error) {
         res.status(500).json({ error })
     }

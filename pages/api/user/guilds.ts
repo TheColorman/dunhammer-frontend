@@ -68,7 +68,7 @@ export default async function handler(
             }
         })
 
-        res.status(200).json({ data: Guilds })
+        res.status(200).json(Guilds)
     } catch (error) {
         res.status(500).json({ error })
     }

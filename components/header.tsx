@@ -21,8 +21,6 @@ export default function Header() {
     return
   }
 
-  const user = apiUser.data as DBUser
-
   // Sticky banner with Dunhammer logo
   return (
     <header>
@@ -64,7 +62,7 @@ export default function Header() {
                           height={16}
                         />
                       </span>
-                      {user.coins}
+                      {apiUser.coins}
                     </p>
                     <Link
                       href="/buy"
