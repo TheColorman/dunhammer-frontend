@@ -11,9 +11,9 @@ export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
-  const { data: apiData } = useSWR('/api/user', fetcher)
-  const dbUserLoading = !apiData
-  const error = apiData?.error ?? null
+  const { data: apiUser } = useSWR('/api/user', fetcher)
+  const dbUserLoading = !apiUser
+  const error = apiUser?.error ?? null
 
   if (session && error) {
     Router.reload()
@@ -60,7 +60,7 @@ export default function Header() {
                           height={16}
                         />
                       </span>
-                      {apiData.coins}
+                      {apiUser.coins}
                     </p>
                     <Link
                       href="/buy"
