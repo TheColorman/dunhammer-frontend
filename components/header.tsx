@@ -19,7 +19,6 @@ export default function Header() {
 
   if (session && hasError) {
     Router.reload()
-    return
   }
 
   // Sticky banner with Dunhammer logo
