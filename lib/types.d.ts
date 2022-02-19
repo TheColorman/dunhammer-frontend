@@ -113,6 +113,4 @@ export interface DBUserBackground extends DBBackground {
     selected: boolean;
 }
 
-export interface APIUser extends DBUser {
-    backgrounds: DBUserBackground[];
-}
+export type APIUser = DBUser | APIError; 
