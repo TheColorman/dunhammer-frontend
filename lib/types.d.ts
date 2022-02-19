@@ -1,4 +1,5 @@
-import { Session } from "next-auth"
+import type { Session } from "next-auth"
+import type { GuildPartial } from "./discord.types";
 
 export interface ExtendedSession extends Session {
     user: {
@@ -114,3 +115,5 @@ export interface DBUserBackground extends DBBackground {
 }
 
 export type APIUser = DBUser | APIError; 
+export type APIUserBackgrounds = DBUserBackground[] | APIError;
+export type APIGuilds = GuildPartial[] | APIError;
