@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import query from '../../lib/db'
-import { DBUser, ExtendedSession, APIUserDBBackground } from '../../lib/types'
+import { DBUser, ExtendedSession, DBUserBackground } from '../../lib/types'
 
 interface M_DBUser extends DBUser {
     user_id: string;
 }
 
-interface M_DBBackground extends APIUserDBBackground {
+interface M_DBBackground extends DBUserBackground {
     background_id: number;
 }
 

@@ -2,11 +2,11 @@ import Image from "next/image"
 import useSWR from "swr"
 import { HoverCard, Arrow, Content, Trigger } from "../radix/hoverCard"
 import type { ReactNode } from "react"
-import type { APIUser, APIUserDBBackground } from "../../lib/types"
+import type { APIUser, DBUserBackground } from "../../lib/types"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const Card = ({ background, DynamicTrigger }: { background: APIUserDBBackground, DynamicTrigger: ReactNode }) => {
+const Card = ({ background, DynamicTrigger }: { background: DBUserBackground, DynamicTrigger: ReactNode }) => {
   const cardDelay = 200;
   return (
     <HoverCard openDelay={cardDelay} closeDelay={cardDelay}>

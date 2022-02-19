@@ -109,10 +109,10 @@ export type BackgroundsBuyResponse = {
     success?: true;
 }
 
-export interface APIUserDBBackground extends DBBackground {
+export interface DBUserBackground extends DBBackground {
     selected: boolean;
 }
 
 export interface APIUser extends DBUser {
-    backgrounds: APIUserDBBackground[];
+    backgrounds: DBUserBackground[];
 }
