@@ -95,6 +95,7 @@ export type ShopBackgrounds = {
 
 export type APIError = {
     error: string;
+    status: number;
 }
 
 export type AccessTokenResponse = {
