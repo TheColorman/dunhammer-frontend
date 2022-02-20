@@ -3,9 +3,46 @@ import { getSession } from 'next-auth/react'
 import query from '../../../lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { GuildPartial } from '../../../lib/discord.types'
-import type { ExtendedSession, DBGuild } from '../../../lib/types'
+import type { ExtendedSession, DBGuild, APIError } from '../../../lib/types'
 
 const prisma = new PrismaClient()
+
+const fetchDiscordGuilds = async (session: ExtendedSession): Promise<APIError | GuildPartial[]> => {
+    if (!session.user.id) {
+        return { error: 'No user ID linked to session. (Try re-authenticating.)', status: 401 }
+    }
+
+    try {
+        // Fetch user guilds from Discord
+        const accessToken = (await prisma.user.findFirst({
+            where: {
+                id: session.user.id
+            },
+            include: {
+                accounts: true
+            }
+        }))?.accounts[0]?.access_token
+
+        if (!accessToken) {
+            return { error: 'No Discord access token found', status: 401 }
+        }
+
+        return await (await fetch(`https://discord.com/api/v9/users/@me/guilds`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        })).json() as GuildPartial[]
+    } catch (e: any) {
+        return { error: e.message, status: 500 }
+    }
+}
+const fetchLocalGuilds = async (session: ExtendedSession): Promise<DBGuild[]> => {
+    return ((await query({
+        query: "SELECT `guilds`.`id`, `guilds`.`name`, `guilds`.`icon` FROM `guild_user` JOIN `guilds` ON `guilds`.`id` = `guild_user`.`guild_id` WHERE `guild_user`.`user_id` = ?",
+        values: [session.user.discordId]
+    })) as DBGuild[])
+
+}
 
 export default async function handler(
     req: NextApiRequest,
@@ -23,40 +60,17 @@ export default async function handler(
         return
     }
 
-    if (!session.user.id) {
-        res.status(401).json({ error: 'No user ID linked to session. (Try re-authenticating.)' })
-    }
+    const full = req.query.full === 'true'
 
-    try {
-        // Fetch user guilds from Discord
-        const accessToken = (await prisma.user.findFirst({
-            where: {
-                id: session.user.id
-            },
-            include: {
-                accounts: true
-            }
-        }))?.accounts[0]?.access_token
-
-        if (!accessToken) {
-            res.status(401).json({ error: 'No access token found' })
-            return
+    const localGuilds = await fetchLocalGuilds(session)
+    if (full) {
+        const discordGuilds = await fetchDiscordGuilds(session)
+        if ("error" in discordGuilds) {
+            return res.status(discordGuilds.status).json(discordGuilds)
         }
 
-        const response = await (await fetch(`https://discord.com/api/v9/users/@me/guilds`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            }
-        })).json() as GuildPartial[]
-        //const DSGuilds = response.filter(guild => guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
-        
-        const DBResult = ((await query({
-            query: "SELECT `guilds`.`id`, `guilds`.`name`, `guilds`.`icon` FROM `guild_user` JOIN `guilds` ON `guilds`.`id` = `guild_user`.`guild_id` WHERE `guild_user`.`user_id` = ?",
-            values: [session.user.discordId]
-        })) as Array<DBGuild>)
-
-        const Guilds = response.map(guild => {
-            const DBGuild = DBResult.find(g => g.id == guild.id)
+        const Guilds = discordGuilds.map(guild => {
+            const DBGuild = localGuilds.find(g => g.id == guild.id)
             return {
                 id: guild.id,
                 name: guild.name,
@@ -67,9 +81,10 @@ export default async function handler(
                 hasDunhammer: !!DBGuild,
             }
         })
-
-        res.status(200).json(Guilds)
-    } catch (error) {
-        res.status(500).json({ error })
+        return res.status(200).json(Guilds)
     }
+
+    return res.status(200).json(localGuilds)
+
+    //const DSGuilds = response.filter(guild => guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
 }
