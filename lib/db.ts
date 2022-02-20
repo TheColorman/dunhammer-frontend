@@ -10,8 +10,8 @@ const db = mysql({
     }
 })
 
-export default async function query({ query , values }: { query: string, values: any[] }) {
-    const results = await db.query(query, values)
+export default async function query({ query , values }: { query: string, values: any[] }): Promise<any[]> {
+    const results = await db.query(query, values) as any[]
     await db.end()
     return results
 }
