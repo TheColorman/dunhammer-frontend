@@ -115,6 +115,11 @@ export interface DBUserBackground extends DBBackground {
     selected: boolean;
 }
 
+export interface DSGuildExt extends GuildPartial {
+    hasDunhammer: boolean;
+}
+
 export type APIUser = DBUser | APIError; 
 export type APIUserBackgrounds = DBUserBackground[] | APIError;
-export type APIGuilds = GuildPartial[] | APIError;
+export type APIGuilds = DBGuild[] | APIError;
+export type APIGuildsFull = DSGuildExt[] | APIError;
