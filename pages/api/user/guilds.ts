@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react'
 import query from '../../../lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { GuildPartial } from '../../../lib/discord.types'
-import type { ExtendedSession, DBGuild, APIError } from '../../../lib/types'
+import type { ExtendedSession, DBGuild, APIError, DSGuildExt } from '../../../lib/types'
 
 const prisma = new PrismaClient()
 
@@ -51,12 +51,12 @@ export default async function handler(
     const session = (await getSession({ req })) as ExtendedSession
 
     if (!session) {
-        res.status(401).json({ error: 'Not authenticated' })
+        res.status(401).json({ error: 'Not authenticated', status: 401 })
         return
     }
 
     if (!session.user.discordId) {
-        res.status(401).json({ error: 'No Discord ID linked to session. (Try re-authenticating.)' })
+        res.status(401).json({ error: 'No Discord ID linked to session. (Try re-authenticating.)', status: 401 })
         return
     }
 
@@ -80,11 +80,9 @@ export default async function handler(
                 features: guild.features,
                 hasDunhammer: !!DBGuild,
             }
-        })
+        }) as DSGuildExt[]
         return res.status(200).json(Guilds)
     }
 
     return res.status(200).json(localGuilds)
-
-    //const DSGuilds = response.filter(guild => guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
 }
