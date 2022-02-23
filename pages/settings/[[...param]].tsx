@@ -26,12 +26,24 @@ function ServerSettings() {
 }
 
 function SettingList() {
-  const { data: apiResGuilds, error: apiErrGuilds } = useSWR('/api/user/guilds?full=true', fetcher)
+  const { data: apiResGuilds, error: apiErrGuilds, mutate } = useSWR('/api/user/guilds?full=true', fetcher)
   const apiGuilds = apiResGuilds as APIGuildsFull | undefined
   const guildsAreLoading = !apiGuilds
   const guildsHaveError = (apiGuilds && "error" in apiGuilds) || apiErrGuilds
 
   if (guildsAreLoading) {
+    return (
+      <div className="spinner" role="status">
+        <span className="hidden">Loading...</span>
+      </div>
+    )
+  }
+
+  if ("status" in apiGuilds && apiGuilds.status === 429 && apiGuilds.retry_after) {
+    console.log(apiGuilds)
+    setTimeout(() => {
+      mutate()
+    }, apiGuilds.retry_after*1000+100)
     return (
       <div className="spinner" role="status">
         <span className="hidden">Loading...</span>
@@ -50,7 +62,6 @@ function SettingList() {
   }
 
   const passedGuilds = apiGuilds.filter(guild => guild.hasDunhammer || guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
-  console.log(passedGuilds);
   return (
     <>
       {passedGuilds.map((guild, index) => (
