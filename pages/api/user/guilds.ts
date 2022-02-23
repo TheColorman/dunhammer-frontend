@@ -27,11 +27,16 @@ const fetchDiscordGuilds = async (session: ExtendedSession): Promise<APIError | 
             return { error: 'No Discord access token found', status: 401 }
         }
 
-        return await (await fetch(`https://discord.com/api/v9/users/@me/guilds`, {
+        const response = await fetch(`https://discord.com/api/v9/users/@me/guilds`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             }
-        })).json() as GuildPartial[]
+        })
+        const json = await response.json()
+        if (response.status && response.status !== 200) {
+            return { error: json.message, status: response.status }
+        }
+        return json as GuildPartial[]
     } catch (e: any) {
         return { error: e.message, status: 500 }
     }
@@ -65,10 +70,10 @@ export default async function handler(
     const localGuilds = await fetchLocalGuilds(session)
     if (full) {
         const discordGuilds = await fetchDiscordGuilds(session)
-        if ("error" in discordGuilds) {
+        if ("status" in discordGuilds && discordGuilds.status !== 200 || "error" in discordGuilds) {
             return res.status(discordGuilds.status).json(discordGuilds)
         }
-
+        
         const Guilds = discordGuilds.map(guild => {
             const DBGuild = localGuilds.find(g => g.id == guild.id)
             return {
