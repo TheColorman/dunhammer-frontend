@@ -34,7 +34,7 @@ const fetchDiscordGuilds = async (session: ExtendedSession): Promise<APIError | 
         })
         const json = await response.json()
         if (response.status && response.status !== 200) {
-            return { error: json.message, status: response.status }
+            return Object.assign({ error: json.message, status: response.status }, json)
         }
         return json as GuildPartial[]
     } catch (e: any) {
