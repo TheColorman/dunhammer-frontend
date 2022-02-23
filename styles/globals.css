@@ -26,8 +26,12 @@ body {
   @apply dark:bg-primary-background;
 }
 
-a:not(.dropdownContent>a) {
+a {
   @apply text-sky-500 hover:text-sky-600 hover:underline;
+}
+
+.dropdownContent a {
+  @apply text-inherit hover:no-underline;
 }
 
 * {
@@ -55,10 +59,12 @@ span {
 }
 
 .btn {
-  @apply py-2;
-  @apply px-4;
-  @apply rounded-full;
-  @apply backdrop-blur;
+  @apply py-2 px-4;
+  @apply rounded-full backdrop-blur;
+}
+
+.btn a  {
+  @apply text-white;
 }
 
 .btn-primary {
