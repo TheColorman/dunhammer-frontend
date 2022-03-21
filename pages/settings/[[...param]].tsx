@@ -4,7 +4,10 @@ import Image from "next/image"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import useSWR from "swr"
-import { APIGuildsFull } from "../../lib/types"
+import { APIGuildsFull, ExtendedSession } from "../../lib/types"
+import { signIn, useSession } from "next-auth/react"
+import Center from "../../components/center"
+import Link from "next/link"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
