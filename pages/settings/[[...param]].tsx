@@ -8,17 +8,24 @@ import { APIGuildsFull, DSGuildExt, ExtendedSession } from "../../lib/types"
 import { signIn, useSession } from "next-auth/react"
 import Center from "../../components/center"
 import Link from "next/link"
+import { Switch, Thumb } from "../../components/radix/switch"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-function ProfileSettings() {
+function ProfileSettings({ session }: { session: ExtendedSession }) {
   return (
-    <>
-      <div className="flex w-1/2 justify-evenly">
-        <p>Username: </p>
-        <input type="text" placeholder="COOLERMAN" className="text-black" />
+    <div className="flex flex-col items-center w-full">
+      <div className="flex gap-4 items-center">
+        <p className="text-lg">Levelup mentions: </p>
+        <Switch
+          className="bg-black w-8 h-6 rounded-full z-0"
+        >
+          <Thumb
+            className="bg-white w-8 h-8 rounded-full z-50"
+          />
+        </Switch>
       </div>
-    </>
+    </div>
   )
 }
 
