@@ -38,15 +38,10 @@ function ServerSettings({ guild, isGuildManager }: { guild: DSGuildExt | undefin
     )
   }
 
-  if (guildsHaveError) {
-    return (
-      <div>
-        <h1>Oops, looks like something went wrong</h1>
-        <p>{"error" in apiGuilds ? apiGuilds.error : "An unknown error occured."}</p>
-        <p className="text-xs">(Try reloading, that might help)</p>
-      </div>
-    )
-  }
+  return (
+    <></>
+  )
+}
 
   const passedGuilds = apiGuilds.filter(guild => guild.hasDunhammer || guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
   return (
@@ -90,15 +85,32 @@ export default function Settings() {
 
   const { data: apiResGuilds, error: apiErrGuilds, mutate } = useSWR('/api/user/guilds?full=true', fetcher)
   const apiGuilds = apiResGuilds as APIGuildsFull | undefined
-
-  if (sessionIsLoading) {
+  const guildsAreLoading = !apiGuilds
+  const guildsHaveError = (apiGuilds && "error" in apiGuilds) || apiErrGuilds
+  // Loading
+  if (sessionIsLoading || guildsAreLoading) {
     return (
-      <div className="spinner" role="status">
-        <span className="hidden">Loading...</span>
-      </div>
+      <Center>
+        <div className="spinner" role="status">
+          <span className="hidden">Loading...</span>
+        </div>
+      </Center>
     )
   }
-
+  if ("status" in apiGuilds && apiGuilds.status === 429 && apiGuilds.retry_after) {
+    console.log(apiGuilds)
+    setTimeout(() => {
+      mutate()
+    }, apiGuilds.retry_after * 1000 + 100)
+    return (
+      <Center>
+        <div className="spinner" role="status">
+          <span className="hidden">Loading...</span>
+        </div>
+      </Center>
+    )
+  }
+  // Not logged in
   if (!session) {
     return (
       <>
@@ -126,7 +138,16 @@ export default function Settings() {
       </>
     )
   }
-
+  // Error
+  if (guildsHaveError) {
+    return (
+      <div>
+        <h1>Oops, looks like something went wrong</h1>
+        <p>{"error" in apiGuilds ? apiGuilds.error : "An unknown error occured."}</p>
+        <p className="text-xs">(Try reloading, that might help)</p>
+      </div>
+    )
+  }
 
   // Settings
   const isGuild = param && param.length === 1
