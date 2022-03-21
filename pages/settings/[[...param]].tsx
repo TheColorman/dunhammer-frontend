@@ -83,6 +83,45 @@ export default function Settings() {
   const router = useRouter()
   const param = router.query.param as string[] | undefined
 
+  const { data, status } = useSession()
+  const sessionIsLoading = status === 'loading'
+  const session = data as ExtendedSession
+
+  if (sessionIsLoading) {
+    return (
+      <div className="spinner" role="status">
+        <span className="hidden">Loading...</span>
+      </div>
+    )
+  }
+
+  if (!session) {
+    return (
+      <>
+        <Head>
+          <title>Dunhammer | Not signed in</title>
+        </Head>
+        <Header />
+        {/* Notify User that they're not logged in */}
+        <Center>
+          <div className="text-center">
+            <h1 className="text-3xl font-bold">
+              You&apos;re not signed in!
+            </h1>
+            <p className="text-lg">
+              Please sign in to view this page.
+            </p>
+            <button
+              className="btn btn-primary mt-4"
+              onClick={() => signIn("discord")}
+            >
+              Sign in with Discord
+            </button>
+          </div>
+        </Center>
+      </>
+    )
+  }
 
   return (
     <>
