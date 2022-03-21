@@ -25,7 +25,7 @@ function ServerSettings() {
   )
 }
 
-function SettingList() {
+function ServerList() {
   const { data: apiResGuilds, error: apiErrGuilds, mutate } = useSWR('/api/user/guilds?full=true', fetcher)
   const apiGuilds = apiResGuilds as APIGuildsFull | undefined
   const guildsAreLoading = !apiGuilds
@@ -134,7 +134,7 @@ export default function Settings() {
         <section className="pt-20 w-full h-full text-white flex pr-[18px] items-start">
           <div className="w-max bg-black/50 p-2">
             <ul className="p-2 flex flex-col items-center">
-              <SettingList />
+              <ServerList />
             </ul>
           </div>
           <div className="m-8 w-full rounded-2xl bg-black/50 flex flex-col items-center py-10">
