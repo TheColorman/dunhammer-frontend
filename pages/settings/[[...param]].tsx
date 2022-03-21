@@ -22,33 +22,19 @@ function ProfileSettings() {
   )
 }
 
-function ServerSettings() {
-  return (
-    <h5>There are no server settings lmao</h5>
-  )
-}
-
-function ServerList({ apiGuilds, apiErrGuilds, mutate }: { apiGuilds: APIGuildsFull | undefined, apiErrGuilds: any, mutate: KeyedMutator<any>}) {
-  const guildsAreLoading = !apiGuilds
-  const guildsHaveError = (apiGuilds && "error" in apiGuilds) || apiErrGuilds
-
-  if (guildsAreLoading) {
+function ServerSettings({ guild, isGuildManager }: { guild: DSGuildExt | undefined, isGuildManager: boolean | undefined }) {
+  if (!guild) {
     return (
-      <div className="spinner" role="status">
-        <span className="hidden">Loading...</span>
-      </div>
+      <h1 className="text-xl">Guild not found</h1>
     )
   }
 
-  if ("status" in apiGuilds && apiGuilds.status === 429 && apiGuilds.retry_after) {
-    console.log(apiGuilds)
-    setTimeout(() => {
-      mutate()
-    }, apiGuilds.retry_after * 1000 + 100)
+  if (!isGuildManager) {
     return (
-      <div className="spinner" role="status">
-        <span className="hidden">Loading...</span>
-      </div>
+      <>
+        <h1 className="text-xl">You do not have the Manage Server permission.</h1>
+        <p className="text-lg">Only Server Managers can change Dunhammer settings.</p>
+      </>
     )
   }
 
