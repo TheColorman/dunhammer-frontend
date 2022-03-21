@@ -184,8 +184,11 @@ export default function Settings() {
             </ul>
           </div>
           <div className="m-8 w-full rounded-2xl bg-black/50 flex flex-col items-center py-10">
-            <ProfileSettings /> <br />
-            <p>Param: {param ? "[" + param.join(", ") + "]" : "None!"}</p>
+            {isGuild ? (
+              <ServerSettings guild={selectedGuild} isGuildManager={isGuildManager} />
+            ) : (
+              <ProfileSettings session={session} />
+            )}
           </div>
         </section>
       </main>
