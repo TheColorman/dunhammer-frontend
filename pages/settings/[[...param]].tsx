@@ -65,13 +65,26 @@ function ServerList() {
   return (
     <>
       {passedGuilds.map((guild, index) => (
-        <li key={index} className="my-3 w-16 h-16">
-          <Image
-            src={`https://cdn.discordapp.com/${guild.icon}.jpeg`}
-            alt={guild.name}
-            width={64}
-            height={64}
-          />
+        <li key={index} className="my-3 w-16 h-16 relative rounded-full overflow-hidden">
+          <Link href={`/settings/${guild.id}`}>
+            <a className="hover:no-underline">
+              {guild.icon ? (
+                <Image
+                  src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${guild.icon.startsWith("a_") ? "gif" : "jpg"}`}
+                  alt={guild.name}
+                  width={64}
+                  height={64}
+                  className="absolute inset-0"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-600 flex items-center justify-center">
+                  <p className="text-xl">
+                    {guild.name.split(" ").map((word) => word[0]).join("")}
+                  </p>
+                </div>
+              )}
+            </a>
+          </Link>
         </li>
       ))
       }
