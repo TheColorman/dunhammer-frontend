@@ -3,7 +3,7 @@ import Footer from "../../components/footer"
 import Image from "next/image"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import useSWR from "swr"
+import useSWR, { KeyedMutator } from "swr"
 import { APIGuildsFull, ExtendedSession } from "../../lib/types"
 import { signIn, useSession } from "next-auth/react"
 import Center from "../../components/center"
@@ -28,9 +28,7 @@ function ServerSettings() {
   )
 }
 
-function ServerList() {
-  const { data: apiResGuilds, error: apiErrGuilds, mutate } = useSWR('/api/user/guilds?full=true', fetcher)
-  const apiGuilds = apiResGuilds as APIGuildsFull | undefined
+function ServerList({ apiGuilds, apiErrGuilds, mutate }: { apiGuilds: APIGuildsFull | undefined, apiErrGuilds: any, mutate: KeyedMutator<any>}) {
   const guildsAreLoading = !apiGuilds
   const guildsHaveError = (apiGuilds && "error" in apiGuilds) || apiErrGuilds
 
@@ -65,7 +63,7 @@ function ServerList() {
   }
 
   const passedGuilds = apiGuilds.filter(guild => guild.hasDunhammer || guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
-    return (
+  return (
     <>
       {passedGuilds.map((guild, index) => (
         <li key={index} className="my-3 w-16 h-16 relative rounded-full overflow-hidden">
@@ -98,10 +96,14 @@ function ServerList() {
 export default function Settings() {
   const router = useRouter()
   const param = router.query.param as string[] | undefined
-
+  
+  // Inital load
   const { data, status } = useSession()
   const sessionIsLoading = status === 'loading'
   const session = data as ExtendedSession
+
+  const { data: apiResGuilds, error: apiErrGuilds, mutate } = useSWR('/api/user/guilds?full=true', fetcher)
+  const apiGuilds = apiResGuilds as APIGuildsFull | undefined
 
   if (sessionIsLoading) {
     return (
@@ -139,6 +141,12 @@ export default function Settings() {
     )
   }
 
+
+  // Settings
+  const isGuild = param && param.length === 1
+  const guildId = isGuild ? param[0] : undefined
+  
+
   return (
     <>
       <Head>
@@ -164,7 +172,7 @@ export default function Settings() {
                 </Link>
               </li>
 
-              <ServerList />
+              <ServerList apiGuilds={apiGuilds} apiErrGuilds={apiErrGuilds} mutate={mutate} />
             </ul>
           </div>
           <div className="m-8 w-full rounded-2xl bg-black/50 flex flex-col items-center py-10">
