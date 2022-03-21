@@ -43,6 +43,7 @@ function ServerSettings({ guild, isGuildManager }: { guild: DSGuildExt | undefin
   )
 }
 
+function ServerList({ apiGuilds }: { apiGuilds: DSGuildExt[] }) {
   const passedGuilds = apiGuilds.filter(guild => guild.hasDunhammer || guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
   return (
     <>
@@ -77,7 +78,7 @@ function ServerSettings({ guild, isGuildManager }: { guild: DSGuildExt | undefin
 export default function Settings() {
   const router = useRouter()
   const param = router.query.param as string[] | undefined
-  
+
   // Inital load
   const { data, status } = useSession()
   const sessionIsLoading = status === 'loading'
@@ -179,7 +180,7 @@ export default function Settings() {
                 </Link>
               </li>
 
-              <ServerList apiGuilds={apiGuilds} apiErrGuilds={apiErrGuilds} mutate={mutate} />
+              <ServerList apiGuilds={apiGuilds} />
             </ul>
           </div>
           <div className="m-8 w-full rounded-2xl bg-black/50 flex flex-col items-center py-10">
