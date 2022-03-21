@@ -43,7 +43,7 @@ function ServerList() {
     console.log(apiGuilds)
     setTimeout(() => {
       mutate()
-    }, apiGuilds.retry_after*1000+100)
+    }, apiGuilds.retry_after * 1000 + 100)
     return (
       <div className="spinner" role="status">
         <span className="hidden">Loading...</span>
