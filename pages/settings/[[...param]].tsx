@@ -161,13 +161,13 @@ export default function Settings() {
               <li className="w-16 h-16 relative overflow-hidden border-b border-gray-600 pb-[4.7rem]">
                 <Link href={`/settings`}>
                   <a>
-                      <Image
-                        src={session.user.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
-                        alt={session.user.name ?? "User"}
-                        width={64}
-                        height={64}
-                        className="absolute inset-0 rounded-full"
-                      />
+                    <Image
+                      src={session.user.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
+                      alt={session.user.name ?? "User"}
+                      width={64}
+                      height={64}
+                      className="absolute inset-0 rounded-full"
+                    />
                   </a>
                 </Link>
               </li>
