@@ -65,7 +65,7 @@ function ServerList() {
   }
 
   const passedGuilds = apiGuilds.filter(guild => guild.hasDunhammer || guild.permissions && (BigInt(guild.permissions) & BigInt(0x20)) == BigInt(0x20)) // 0x20 = Guilds.MANAGE_GUILD
-  return (
+    return (
     <>
       {passedGuilds.map((guild, index) => (
         <li key={index} className="my-3 w-16 h-16 relative rounded-full overflow-hidden">
@@ -150,7 +150,7 @@ export default function Settings() {
         <section className="pt-20 w-full h-full text-white flex pr-[18px] items-start">
           <div className="w-max bg-black/50 p-2">
             <ul className="p-2 flex flex-col items-center">
-              <li className="mt-3 w-16 h-16 relative overflow-hidden border-b border-gray-600 pb-[4.7rem]">
+              <li className="w-16 h-16 relative overflow-hidden border-b border-gray-600 pb-[4.7rem]">
                 <Link href={`/settings`}>
                   <a>
                       <Image
