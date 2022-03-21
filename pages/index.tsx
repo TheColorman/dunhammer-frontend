@@ -37,6 +37,7 @@ const Home: NextPage = () => {
               </p>
               <div className="mt-8">
                 <a
+                  className="btn btn-primary"
                   target="popup"
                   onClick={() => {
                     window.open(
@@ -46,17 +47,15 @@ const Home: NextPage = () => {
                     );
                   }}
                 >
-                  <button className="btn btn-primary">
-                    Add Dunhammer to your server
-                  </button>
+                  Add Dunhammer to your server
                 </a>
               </div>
               <div className="mt-4 py-2">
-                  <Link href="/dashboard">
-                    <a className="btn btn-secondary">
-                      Dashboard
-                    </a>
-                  </Link>
+                <Link href="/dashboard">
+                  <a className="btn btn-secondary">
+                    Dashboard
+                  </a>
+                </Link>
               </div>
               <div className="mt-2 mb-8">
                 <p className="text-gray-500 dark:text-gray-300">
