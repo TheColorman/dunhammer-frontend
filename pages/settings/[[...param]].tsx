@@ -153,7 +153,8 @@ export default function Settings() {
   // Settings
   const isGuild = param && param.length === 1
   const guildId = isGuild ? param[0] : undefined
-  
+  const selectedGuild = guildId ? apiGuilds.find(guild => guild.id === guildId) : undefined
+  const isGuildManager = (selectedGuild && selectedGuild.permissions) ? (BigInt(selectedGuild.permissions) & BigInt(0x20)) == BigInt(0x20) : undefined
 
   return (
     <>
